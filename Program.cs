@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SchoolMngr.Services.BO;
 
-namespace users
+namespace SchoolMngr.Services.BO
 {
     public class Program
     {
