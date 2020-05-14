@@ -2,65 +2,81 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
-module SchoolMngr.BackOffice.Model.Enums {
-	export enum AttendanceEnum { 
-		ATTEND = 1, 
-		MISS = 2, 
-		REASON = 3
-	}
-	export enum ExamTypeEnum { 
-		FIRST = 1, 
-		SECOND = 2, 
-		THIRD = 3, 
-		RETRY = 4, 
-		FINAL = 5
-	}
-	export enum RolesEnum { 
-		ADMINISTRADOR = 1, 
-		SUPERVISOR = 2, 
-		TEACHER = 3, 
-		STUDENT = 4, 
-		DEBUG = -1
-	}
-	export enum ShiftTimeEnum { 
-		TOMORROW = 1, 
-		AFTERNOON = 2, 
-		NIGHT = 3
-	}
-	export enum StudentStateEnum { 
-		ENROLLED = 1, 
-		ACTIVE = 2, 
-		INACTIVE = 3, 
-		ACHIEVED = 4
-	}
+enum AttendanceEnum { 
+	ATTENDED = 1, 
+	MISSED = 2, 
+	REASON = 3
 }
-module SchoolMngr.BackOffice.Model.Dtos {
-	export interface ClassRoom
-	{
-		Id: number;
-		Description: string;
-		Capacity: number;
-		HasNetworkConexion: boolean;
-		HasScreenProjector: boolean;
-	}
-	export interface Login
-	{
-		Username: string;
-		Password: string;
-		RememberMe: boolean;
-	}
-	export interface Register extends SchoolMngr.BackOffice.Model.Dtos.Login
-	{
-		Email: string;
-		FirstName: string;
-		LastName: string;
-		Confirm: string;
-	}
-	export interface LoginResp
-	{
-		Token: string;
-		ExpirationDate: number;
-		HasToken: boolean;
-		MessageResponse: string;
-	}
+enum ExamTypeEnum { 
+	FIRST = 1, 
+	SECOND = 2, 
+	THIRD = 3, 
+	RETRY = 4, 
+	FINAL = 5
+}
+enum RolesEnum { 
+	ADMINISTRADOR = 1, 
+	TEACHER = 2, 
+	STUDENT = 3, 
+	DEBUG = -1
+}
+enum ShiftTimeEnum { 
+	MORNING = 1, 
+	EVENING = 2, 
+	AFTERNOON = 3, 
+	NIGHT = 4
+}
+enum StudentStateEnum { 
+	ENROLLED = 1, 
+	ACTIVE = 2, 
+	INACTIVE = 3, 
+	ACHIEVED = 4
+}
+interface Assingment
+{
+	StartsTime: any;
+	EndsTime: any;
+	Time: any;
+	Day: number;
+	Subject: any;
+	Teacher: any;
+}
+interface Class
+{
+	Id: number;
+	Name: string;
+	Shift: ShiftTimeEnum;
+	ShiftDescription: string;
+	Assingment: Assingment;
+	ClassRoom: Room;
+}
+interface Grade
+{
+	Id: number;
+	Name: string;
+}
+interface Room
+{
+	Id: number;
+	Description: string;
+	Capacity: number;
+	HasNetworkConexion: boolean;
+	HasScreenProjector: boolean;
+}
+interface Subject
+{
+	CodeName: string;
+	Description: string;
+	Required: any;
+	Grade: any;
+	Assingments: Assingment[];
+}
+interface Teacher
+{
+	Id: number;
+	Deleted: boolean;
+	Address: string;
+	IsTemporary: boolean;
+	Obs: string;
+	Assingments: Assingment[];
 }

@@ -1,7 +1,10 @@
-﻿using Reinforced.Typings.Fluent;
-
+﻿/// <summary>
+/// 
+/// </summary>
 namespace SchoolMngr.BackOffice.Model
 {
+    using Reinforced.Typings.Fluent;
+
     public static class ReinforcedTypingsConfiguration
     {
         public static void Configure(ConfigurationBuilder builder)

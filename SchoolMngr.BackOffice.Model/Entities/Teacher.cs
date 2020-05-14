@@ -1,25 +1,22 @@
-﻿using SchoolMngr.NetStdLibrary.Base.Abstractions;
-using SchoolMngr.NetStdLibrary.Base.Identity;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿/// <summary>
+/// 
+/// </summary>
 namespace SchoolMngr.BackOffice.Model.Entities
 {
-    [Table("Teachers", Schema = "School")]
-    public class Teacher : IEntity
+    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Pandora.NetStdLibrary.Base.DomainModel;
+    using System.Collections.Generic;
+
+    public class Teacher : EFEntity, ITrackeableEntity
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public virtual int Id { get; set; }
-        [MaxLength(200)]
-        public virtual string Address { get; set; }
-        [MaxLength]
-        public virtual string Obs { get; set; }
+        public bool Deleted { get; set; }
+        public string Address { get; set; }
+        public bool IsTemporary { get; set; }
+        public string Obs { get; set; }
 
-        public virtual int ApplicationUserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual int IdentityUserId { get; set; }
 
-        public virtual IEnumerable<SubjectAssingment> SubjectAssingments { get; set; }
+        public virtual ICollection<Assingment> Assingments { get; set; }
 
     }
 }

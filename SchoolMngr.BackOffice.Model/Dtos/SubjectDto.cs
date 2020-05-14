@@ -1,32 +1,27 @@
-﻿using Newtonsoft.Json;
-using SchoolMngr.BackOffice.Model.Entities;
-using Reinforced.Typings.Attributes;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿/// <summary>
+/// 
+/// </summary>
 namespace SchoolMngr.BackOffice.Model.Dtos
 {
-    [TsInterface(AutoI = false, Name = "Subject")]
-    public sealed class SubjectDto : Subject
+    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Reinforced.Typings.Attributes;
+    using SchoolMngr.BackOffice.Model.Entities;
+    using System.Collections.Generic;
+
+    [TsInterface(AutoI = false, Name = "Subject", IncludeNamespace = false)]
+    public sealed class SubjectDto : IDto
     {
         public SubjectDto()
         {
-            //Exams = new List<ExamDto>();
-            //Attends = new List<AttendDto>();
-            //StudentStates = new List<StudentStateDto>();
-            //SubjectAssingments = new List<SubjectAssingmentDto>();
+            Assingments = new List<AssingmentDto>();
         }
 
-        public override int Id { get => base.Id; set => base.Id = value; }
-        public override string Name { get => base.Name; set => base.Name = value; }
-        public SubjectAssingmentDto ValidSubjectAssingment { get; set; }
-        public StudentStateDto ValidStudentState { get; set; }
-        [JsonIgnore]
-        public new IEnumerable<SubjectAssingmentDto> SubjectAssingments { get; set; }
-        [JsonIgnore]
-        public new IEnumerable<StudentStateDto> StudentStates { get; set; }
-        public new IEnumerable<AttendDto> Attends { get; set; }
-        public new IEnumerable<ExamDto> Exams { get; set; }
+        public string CodeName { get; set; }
+        public string Description { get; set; }
+
+        public Subject Required { get; set; }
+        public Grade Grade { get; set; }
+        public ICollection<AssingmentDto> Assingments { get; set; }
 
     }
 }

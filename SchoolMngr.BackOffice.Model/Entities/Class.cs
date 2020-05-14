@@ -1,25 +1,24 @@
 ﻿using Newtonsoft.Json;
 using SchoolMngr.BackOffice.Model.Enums;
-using SchoolMngr.NetStdLibrary.Base.Abstractions;
+using Pandora.NetStdLibrary.Base.DomainModel;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace SchoolMngr.BackOffice.Model.Entities
 {
-    [Table("Classes", Schema = "School")]
-    public class Class : IEntity
+    public class Class : AuditableEntity
     {
-        [Key]
-        public virtual int Id { get; set; }
+        public string Name { get; set; }
+        public ShiftTimeEnum Shift { get; set; }
+        public DateTime StartsDate { get; set; }
+        public DateTime ClosesDate { get; set; }
+        public short EnrolledQty { get; set; }
 
-        [Required, MaxLength(50)]
-        public virtual string Name { get; set; }
-
-        public virtual ShiftTimeEnum Shift { get; set; }
-
-        public virtual int GradeId { get; set; }
-        public virtual Grade Grade { get; set; }
-        public virtual ICollection<SubjectAssingment> SubjectAssingments { get; set; }
+        public virtual int AssingmentId { get; set; }
+        public virtual Assingment Assingment { get; set; }
+        public virtual int RoomId { get; set; }
+        public virtual Room Room { get; set; }
     }
 }

@@ -3,18 +3,16 @@ using System.ComponentModel;
 
 namespace SchoolMngr.BackOffice.Model.Enums
 {
-    [TsEnum]
+    [TsEnum(IncludeNamespace = false)]
     public enum RolesEnum
     {
         [Description("Dev")]
         DEBUG = -1,
         [Description("Admin")]
         ADMINISTRADOR = 1,
-        [Description("Super")]
-        SUPERVISOR,
         [Description("Teacher")]
-        TEACHER,
+        TEACHER = 2,
         [Description("Student")]
-        STUDENT
+        STUDENT = 3
     }
 }

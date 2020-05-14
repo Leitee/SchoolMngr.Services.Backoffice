@@ -1,20 +1,26 @@
-﻿using Newtonsoft.Json;
-using SchoolMngr.BackOffice.Model.Entities;
-using Reinforced.Typings.Attributes;
-using System.Collections.Generic;
-
+﻿/// <summary>
+/// 
+/// </summary>
 namespace SchoolMngr.BackOffice.Model.Dtos
 {
-    [TsInterface(AutoI = false, Name = "Teacher")]
-    public sealed class TeacherDto : Teacher
-    {
-        public sealed override int Id { get => base.Id; set => base.Id = value; }
-        public sealed override string Address { get => base.Address; set => base.Address = value; }
-        public sealed override string Obs { get => base.Obs; set => base.Obs = value; }
+    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Reinforced.Typings.Attributes;
+    using System.Collections.Generic;
 
-        public new UserDto ApplicationUser { get; set; }
-        public SubjectAssingmentDto ValidSubjectAssingment { get; set; }
-        [JsonIgnore]
-        public new IEnumerable<SubjectAssingmentDto> SubjectAssingments { get; set; }
+    [TsInterface(AutoI = false, Name = "Teacher", IncludeNamespace = false)]
+    public sealed class TeacherDto : IDto
+    {
+        public TeacherDto()
+        {
+            Assingments = new List<AssingmentDto>();
+        }
+
+        public int Id { get; set; }
+        public bool Deleted { get; set; }
+        public string Address { get; set; }
+        public bool IsTemporary { get; set; }
+        public string Obs { get; set; }
+
+        public ICollection<AssingmentDto> Assingments { get; set; }
     }
 }

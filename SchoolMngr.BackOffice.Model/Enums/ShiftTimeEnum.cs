@@ -3,14 +3,16 @@ using System.ComponentModel;
 
 namespace SchoolMngr.BackOffice.Model.Enums
 {
-    [TsEnum]
+    [TsEnum(IncludeNamespace = false)]
     public enum ShiftTimeEnum
     {
-        [Description("Mañana")]
-        TOMORROW = 1,
-        [Description("Tarde")]
-        AFTERNOON = 2,
-        [Description("Noche")]
-        NIGHT = 3
+        [Description("Morning")]
+        MORNING = 1,
+        [Description("Evening")]
+        EVENING,
+        [Description("Afternoon")]
+        AFTERNOON,
+        [Description("Night")]
+        NIGHT 
     }
 }

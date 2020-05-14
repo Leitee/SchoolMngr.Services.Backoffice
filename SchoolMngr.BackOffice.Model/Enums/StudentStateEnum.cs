@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace SchoolMngr.BackOffice.Model.Enums
 {
-    [TsEnum]
+    [TsEnum(IncludeNamespace = false)]
     public enum StudentStateEnum
     {
         [Description("Matriculado")]

@@ -3,13 +3,13 @@ using System.ComponentModel;
 
 namespace SchoolMngr.BackOffice.Model.Enums
 {
-    [TsEnum]
+    [TsEnum(IncludeNamespace = false)]
     public enum AttendanceEnum
     {
         [Description("Presente")]
-        ATTEND = 1,
+        ATTENDED = 1,
         [Description("Ausente")]
-        MISS,
+        MISSED,
         [Description("Justificado")]
         REASON,
     }

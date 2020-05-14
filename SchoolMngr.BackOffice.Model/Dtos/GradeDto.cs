@@ -1,21 +1,15 @@
-﻿using Newtonsoft.Json;
-using SchoolMngr.BackOffice.Model.Entities;
-using Reinforced.Typings.Attributes;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
+﻿/// <summary>
+/// 
+/// </summary>
 namespace SchoolMngr.BackOffice.Model.Dtos
 {
-    [TsInterface(AutoI = false, Name = "Grade")]
-    public sealed class GradeDto : Grade
+    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Reinforced.Typings.Attributes;
+
+    [TsInterface(AutoI = false, Name = "Grade", IncludeNamespace = false)]
+    public sealed class GradeDto : IDto
     {
-        [Required]
-        public override int Id { get => base.Id; set => base.Id = value; }
-
-        [Required, MaxLength(50), Display(Name = "Año", Order = 1)]
-        public override string Name { get => base.Name; set => base.Name = value; }
-
-        [TsIgnore]
-        public new IEnumerable<ClassDto> Classes { set { } }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

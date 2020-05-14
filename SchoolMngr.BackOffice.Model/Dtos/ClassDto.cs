@@ -1,31 +1,22 @@
-﻿using Newtonsoft.Json;
-using SchoolMngr.NetStdLibrary.Base.Utils;
-using SchoolMngr.BackOffice.Model.Entities;
-using SchoolMngr.BackOffice.Model.Enums;
-using Reinforced.Typings.Attributes;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
+﻿/// <summary>
+/// 
+/// </summary>
 namespace SchoolMngr.BackOffice.Model.Dtos
 {
-    [TsInterface(AutoI = false, Name = "Class")]
-    public  sealed class ClassDto : Class
+    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Pandora.NetStdLibrary.Base.Utils;
+    using Reinforced.Typings.Attributes;
+    using SchoolMngr.BackOffice.Model.Enums;
+
+    [TsInterface(AutoI = false, Name = "Class", IncludeNamespace = false)]
+    public  sealed class ClassDto : IDto
     {
-        public override int Id { get; set; }
-
-        [Required, MaxLength(50), Display(Name = "División", Order = 2)]
-        public override string Name { get; set; }
-
-        [Display(Name = "Turno", Order = 3)]
-        public override ShiftTimeEnum Shift { get; set; }
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public ShiftTimeEnum Shift { get; set; }
         public string ShiftDescription { get { return Shift.GetDescription(); } }
 
-        [Display(Name = "Año", Order = 1)]
-        public new GradeDto Grade { get; set; }
-
-        public SubjectAssingmentDto ValidSubjectAssingment { get; set; }
-        [JsonIgnore]
-        public new IEnumerable<SubjectAssingmentDto> SubjectAssingments { get; set; }
+        public AssingmentDto Assingment { get; set; }
+        public RoomDto ClassRoom { get; set; }
     }
 }

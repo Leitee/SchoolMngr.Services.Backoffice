@@ -1,21 +1,12 @@
-﻿using Newtonsoft.Json;
-using SchoolMngr.NetStdLibrary.Base.Abstractions;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿/// <summary>
+/// 
+/// </summary>
 namespace SchoolMngr.BackOffice.Model.Entities
 {
-    [Table("Grades", Schema = "School")]
-    public class Grade : IEntity
+    using Pandora.NetStdLibrary.Base.DomainModel;
+
+    public class Grade : EFEntity
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public virtual int Id { get; set; }
-
-        [Required, MaxLength(50)]
-        public virtual string Name { get; set; }
-
-        [JsonIgnore]
-        public virtual IEnumerable<Class> Classes { get; set; }
+        public string Name { get; set; }
     }
 }
