@@ -64,7 +64,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// each one is a factory for a repository of a particular type.
         /// </summary>
         /// <remarks>
-        /// MODIFY THIS METHOD TO ADD CUSTOM CODE CAMPER FACTORY FUNCTIONS
+        /// MODIFY THIS METHOD TO ADD CUSTOM FACTORY FUNCTIONS
         /// </remarks>
         private IDictionary<Type, Func<TContext, object>> GetCustomeFactories()
         {
@@ -115,7 +115,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <typeparam name="T">Type of the repository's root entity</typeparam>
         protected virtual Func<TContext, object> DefaultEntityRepositoryFactory<T>() where T : class, IEntity
         {
-            return dbContext => new EfRepository<T>(dbContext);
+            return dbContext => new EFRepository<T>(dbContext);
         }
     }
 }

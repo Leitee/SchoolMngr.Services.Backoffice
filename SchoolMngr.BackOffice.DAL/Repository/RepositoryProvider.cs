@@ -64,9 +64,9 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <remarks>
         /// If can't find repository in cache, use a factory to create one.
         /// </remarks>
-        public IEfRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity
+        public IEFRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity
         {
-            return GetRepository<IEfRepository<T>>(_repositoryFactories.GetRepositoryFactoryForEntityType<T>());
+            return GetRepository<IEFRepository<T>>(_repositoryFactories.GetRepositoryFactoryForEntityType<T>());
         }
 
         /// <summary>

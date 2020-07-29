@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SchoolMngr.BackOffice.DAL;
 using SchoolMngr.Core.Shared;
-using SchoolMngr.Services.BO;
 using Serilog;
+using System;
+using System.IO;
 
 namespace SchoolMngr.Services.BO
 {

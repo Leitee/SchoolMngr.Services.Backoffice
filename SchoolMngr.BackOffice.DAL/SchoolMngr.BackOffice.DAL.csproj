@@ -5,14 +5,9 @@
     <LangVersion>$(LangTargetVersion)</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup><!--<PackageReference Include="Pandora.NetStdLibrary.Base" Version="$(PandoraNetStdLibraryBasePackageVersion)" />-->
-  
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(MicrosoftEntityFrameworkCorePackageVersion)" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(MicrosoftEntityFrameworkCoreSqlServerPackageVersion)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkAllPackageVersion)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkAllPackageVersion)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.3" />
   </ItemGroup>

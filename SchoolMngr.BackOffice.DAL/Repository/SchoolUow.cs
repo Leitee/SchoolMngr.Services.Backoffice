@@ -4,56 +4,55 @@
 namespace SchoolMngr.BackOffice.DAL.Repository
 {
     using Microsoft.EntityFrameworkCore.Storage;
+    using Microsoft.Extensions.Logging;
     using Pandora.NetStdLibrary.Base.Abstractions;
     using Pandora.NetStdLibrary.Base.Abstractions.DataAccess;
     using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
     using System;
     using System.Threading.Tasks;
 
-    public class ApplicationUow<TContext> : IApplicationUow, IDisposable where TContext : SchoolDbContext
-    {
-        private readonly TContext _dbContext;
-        private readonly IRepositoryProvider<TContext> _repositoryProvider;
+    public class SchoolUow : IApplicationUow, IDisposable
+    { 
+        private readonly SchoolDbContext _dbContext;
+        private readonly IRepositoryProvider<SchoolDbContext> _repositoryProvider;
+        private readonly ILogger<SchoolUow> _logger;
 
-        public ApplicationUow(TContext context, IRepositoryProvider<TContext> repositoryProvider)
+        public SchoolUow(
+            SchoolDbContext context,
+            IRepositoryProvider<SchoolDbContext> repositoryProvider,
+            ILogger<SchoolUow> logger)
         {
             _dbContext = context;
             _repositoryProvider = repositoryProvider;
+            _logger = logger;
         }
 
-        /// <summary>
-        /// Save pending changes to the database and return true if there was at least 1 row affected
-        /// </summary>
         public bool Commit()
         {
-            //System.Diagnostics.Debug.WriteLine("Committed");
+            _logger.LogInformation("Unit of work Commited");
             return _dbContext.SaveChanges() > 0;
         }
 
-        /// <summary>
-        /// Save pending changes to the database asyncly and return the amount of affected rows
-        /// </summary>
         public async Task<bool> CommitAsync()
         {
+            _logger.LogInformation("Unit of work Commited");
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
-        /// <summary>
-        /// For transaction handling
-        /// </summary>
-        /// <returns></returns>
         public IDbContextTransaction StartTransaction()
         {
             return _dbContext.Database.BeginTransaction();
         }
 
-        /// <summary>
-        /// For transaction handling asyncly
-        /// </summary>
-        /// <returns></returns>
         public async Task<IDbContextTransaction> StartTransactionAsync()
         {
             return await _dbContext.Database.BeginTransactionAsync();
+        }
+
+        public IEFRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
+        {
+            _logger.LogInformation($"Getting repository entity of type {typeof(TEntity)}");
+            return _repositoryProvider.GetRepositoryForEntityType<TEntity>();
         }
 
         #region IDisposable
@@ -76,14 +75,5 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         }
         #endregion
 
-        public IEfRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
-        {
-            return _repositoryProvider.GetRepositoryForEntityType<TEntity>();
-        }
-
-        public T GetIdentityRepo<T>() where T : class
-        {
-            return _repositoryProvider.GetRepository<T>();
-        }
     }
 }

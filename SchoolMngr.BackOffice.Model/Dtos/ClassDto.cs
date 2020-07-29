@@ -4,7 +4,7 @@
 namespace SchoolMngr.BackOffice.Model.Dtos
 {
     using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Pandora.NetStdLibrary.Base.Utils;
+    using Pandora.NetStdLibrary.Base.Common;
     using Reinforced.Typings.Attributes;
     using SchoolMngr.BackOffice.Model.Enums;
 

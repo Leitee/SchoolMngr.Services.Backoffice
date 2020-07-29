@@ -13,12 +13,12 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public class EfRepository<TEntity> : IEfRepository<TEntity> where TEntity : class, IEntity
+    public class EFRepository<TEntity> : IEFRepository<TEntity> where TEntity : class, IEntity
     {
         protected readonly SchoolDbContext _dbContext;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public EfRepository(SchoolDbContext context)
+        public EFRepository(SchoolDbContext context)
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<TEntity>();

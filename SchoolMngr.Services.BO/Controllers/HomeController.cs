@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SchoolMngr.Services.BO.Models;
@@ -18,6 +19,7 @@ namespace SchoolMngr.Services.BO.Controllers
             _logger = logger;
         }
 
+        [Authorize(Policy = "Home")]
         public IActionResult Index()
         {
             return View();

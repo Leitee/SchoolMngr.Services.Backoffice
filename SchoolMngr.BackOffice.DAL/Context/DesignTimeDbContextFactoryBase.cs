@@ -15,14 +15,15 @@ namespace SchoolMngr.BackOffice.DAL
 
         public TContext CreateDbContext(string[] args)
         {
-            var basePath = Directory.GetCurrentDirectory() + string.Format("{0}..{0}SchoolMngr.Services.BO", Path.DirectorySeparatorChar);
-            return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
+            var basePath = Directory.GetCurrentDirectory(); //+ string.Format("{0}..{0}SchoolMngr.Services.BO", Path.DirectorySeparatorChar);
+            return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment) ?? "Development");//TODO: get varible from context
         }
 
         protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
 
         private TContext Create(string basePath, string environmentName)
         {
+            Console.WriteLine($"Entering create method with params[ basePath: '{basePath}', environmentName: '{environmentName}'].");
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
@@ -45,7 +46,8 @@ namespace SchoolMngr.BackOffice.DAL
 
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
 
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(connectionString, sqlOpt =>
+                    sqlOpt.MigrationsHistoryTable("Migrations", "Config"));
 
             return CreateNewInstance(optionsBuilder.Options);
         }
