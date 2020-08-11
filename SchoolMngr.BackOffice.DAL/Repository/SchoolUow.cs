@@ -57,7 +57,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         }
 
         #region IDisposable
-        //TODO: see Dispose pattern
+        //TODO: improve Dispose pattern
         private bool disposed = false;
 
         public void Dispose()

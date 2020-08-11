@@ -144,15 +144,15 @@ namespace SchoolMngr.BackOffice.DAL.Repository
             });
         }
 
-        public async Task<int> ExecuteQueryAsync(string query, params object[] paramaters)
+        public async Task<IQueryable<TEntity>> ExecuteQueryAsync(string query, params object[] paramaters)
         {
-            return await _dbContext.Database.ExecuteSqlCommandAsync(query, paramaters);
+            return await Task.Run(() => _dbSet.FromSqlRaw(query, paramaters));
         }
 
         public async Task<List<TEntity>> ExecSp(string spName, params object[] parameters)
         {
             var tEntity = new List<TEntity>();
-            var spResult = await Task.Run(() => _dbSet.FromSqlRaw(spName, parameters));
+            var spResult = await Task.Run(() => _dbSet.FromSqlRaw($"EXEC {spName}", parameters));
             foreach (var item in spResult)
             {
                 tEntity.Add(item);

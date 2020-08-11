@@ -1,7 +1,7 @@
 ﻿/// <summary>
 /// 
 /// </summary>
-namespace SchoolMngr.BackOffice.Model
+namespace SchoolMngr.BackOffice.Model.TypeScript
 {
     using Reinforced.Typings.Fluent;
 

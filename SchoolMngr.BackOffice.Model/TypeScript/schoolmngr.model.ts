@@ -34,12 +34,12 @@ enum StudentStateEnum {
 }
 interface Assingment
 {
-	StartsTime: any;
-	EndsTime: any;
+	StartsTime: Date;
+	EndsTime: Date;
 	Duration: any;
 	Day: number;
-	Subject: any;
-	Teacher: any;
+	Subject: Subject;
+	Teacher: Teacher;
 }
 interface Class
 {
@@ -67,8 +67,8 @@ interface Subject
 {
 	CodeName: string;
 	Description: string;
-	Required: any;
-	Grade: any;
+	Required: Subject;
+	Grade: Grade;
 	Assingments: Assingment[];
 }
 interface Teacher

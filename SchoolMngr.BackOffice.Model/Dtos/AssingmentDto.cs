@@ -5,7 +5,6 @@ namespace SchoolMngr.BackOffice.Model.Dtos
 {
     using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
     using Reinforced.Typings.Attributes;
-    using SchoolMngr.BackOffice.Model.Entities;
     using System;
 
     [TsInterface(AutoI = false, Name = "Assingment", IncludeNamespace = false)]
@@ -16,7 +15,7 @@ namespace SchoolMngr.BackOffice.Model.Dtos
         public TimeSpan Duration { get { return EndsTime - StartsTime; } }
         public DayOfWeek Day { get { return StartsTime.DayOfWeek; } }
 
-        public Subject Subject { get; set; }
-        public Teacher Teacher { get; set; }
+        public SubjectDto Subject { get; set; }
+        public TeacherDto Teacher { get; set; }
     }
 }
