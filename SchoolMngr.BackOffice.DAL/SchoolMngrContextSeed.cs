@@ -3,7 +3,7 @@
 /// </summary>
 namespace SchoolMngr.BackOffice.DAL
 {
-    using Microsoft.EntityFrameworkCore.Internal;
+    using Microsoft.EntityFrameworkCore;
     using SchoolMngr.BackOffice.Model.Entities;
     using SchoolMngr.BackOffice.Model.Enums;
     using System;
@@ -21,7 +21,7 @@ namespace SchoolMngr.BackOffice.DAL
 
         public async Task SeedAllAsync(CancellationToken cancellationToken)
         {
-            if (_context.Grades.Any()) return;
+            if (await _context.Grades.AnyAsync()) return;
 
             await SeedGradesAsync(cancellationToken);
 

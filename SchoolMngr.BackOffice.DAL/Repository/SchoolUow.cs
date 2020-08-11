@@ -14,12 +14,12 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     public class SchoolUow : IApplicationUow, IDisposable
     { 
         private readonly SchoolDbContext _dbContext;
-        private readonly IRepositoryProvider<SchoolDbContext> _repositoryProvider;
+        private readonly IEFRepositoryProvider<SchoolDbContext> _repositoryProvider;
         private readonly ILogger<SchoolUow> _logger;
 
         public SchoolUow(
             SchoolDbContext context,
-            IRepositoryProvider<SchoolDbContext> repositoryProvider,
+            IEFRepositoryProvider<SchoolDbContext> repositoryProvider,
             ILogger<SchoolUow> logger)
         {
             _dbContext = context;
@@ -29,6 +29,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
 
         public bool Commit()
         {
+            ///TODO: manage auditable entities on commit
             _logger.LogInformation("Unit of work Commited");
             return _dbContext.SaveChanges() > 0;
         }
@@ -49,10 +50,10 @@ namespace SchoolMngr.BackOffice.DAL.Repository
             return await _dbContext.Database.BeginTransactionAsync();
         }
 
-        public IEFRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
         {
             _logger.LogInformation($"Getting repository entity of type {typeof(TEntity)}");
-            return _repositoryProvider.GetRepositoryForEntityType<TEntity>();
+            return _repositoryProvider.GetEFRepositoryForEntityType<TEntity>();
         }
 
         #region IDisposable

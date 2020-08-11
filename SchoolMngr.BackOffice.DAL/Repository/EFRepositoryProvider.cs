@@ -6,7 +6,6 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     using Pandora.NetStdLibrary.Base.Abstractions;
     using Pandora.NetStdLibrary.Base.Abstractions.DataAccess;
     using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Pandora.NetStdLibrary.Base.Abstractions.Identity;
     using Pandora.NetStdLibrary.Base.DataAccess;
     using System;
     using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     /// Caches repositories of a given type so that repositories are only created once per provider.
     /// Code Camper creates a new provider per client request.
     /// </remarks>
-    public class RepositoryProvider<TContext> : IRepositoryProvider<TContext> where TContext : SchoolDbContext
+    public class EFRepositoryProvider<TContext> : IEFRepositoryProvider<TContext> where TContext : SchoolDbContext
     {
         /// <summary>
         /// The <see cref="RepositoryFactories"/> with which to create a new repository.
@@ -26,7 +25,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <remarks>
         /// Should be initialized by constructor injection
         /// </remarks>
-        private readonly RepositoryFactories<TContext> _repositoryFactories;
+        private readonly SchoolRepositoryFactory _repositoryFactories;
 
         /// <summary>
         /// Get and set the <see cref="DbContext"/> with which to initialize a repository
@@ -44,15 +43,11 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// </remarks>
         protected Dictionary<Type, object> Repositories { get; private set; }
 
-        public RepositoryProvider(TContext dbContext, IUserRepository userRepository, IRoleRepository roleRepository)
+        public EFRepositoryProvider(TContext dbContext)
         {
             DbContext = dbContext;
             Repositories = new Dictionary<Type, object>();
-            _repositoryFactories = new RepositoryFactories<TContext>(new Dictionary<Type, Func<TContext, object>>
-            {
-                {typeof(IUserRepository), _dbContext => userRepository},
-                {typeof(IRoleRepository), _dbContext => roleRepository},
-            });
+            _repositoryFactories = new SchoolRepositoryFactory();
         }
 
         /// <summary>
@@ -64,7 +59,22 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <remarks>
         /// If can't find repository in cache, use a factory to create one.
         /// </remarks>
-        public IEFRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity
+        public IRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity
+        {
+            return GetRepository<IRepository<T>>(_repositoryFactories.GetRepositoryFactoryForEntityType<T>());
+        }
+
+
+        /// <summary>
+        /// Get or create-and-cache the default <see cref="IEFRepository{T}"/> for an entity of type T.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Root entity type of the <see cref="IEFRepository{T}"/>.
+        /// </typeparam>
+        /// <remarks>
+        /// If can't find repository in cache, use a factory to create one.
+        /// </remarks>
+        public IEFRepository<T> GetEFRepositoryForEntityType<T>() where T : class, IEntity
         {
             return GetRepository<IEFRepository<T>>(_repositoryFactories.GetRepositoryFactoryForEntityType<T>());
         }
@@ -134,6 +144,21 @@ namespace SchoolMngr.BackOffice.DAL.Repository
             Repositories[typeof(T)] = repository;
         }
 
+        class SchoolRepositoryFactory : RepositoryFactories<SchoolDbContext>
+        {
+            //protected override IDictionary<Type, Func<SchoolDbContext, object>> GetCustomeFactories()
+            //{
+            //    return new Dictionary<Type, Func<SchoolDbContext, object>>
+            //    {
+            //        {typeof(IUserRepository), _dbContext => userRepository},
+            //        {typeof(IRoleRepository), _dbContext => roleRepository},
+            //    };
+            //}
 
+            protected override Func<SchoolDbContext, object> DefaultEntityRepositoryFactory<T>()
+            {
+                return dbContext => new EFRepository<T>(dbContext);
+            }
+        }
     }
 }

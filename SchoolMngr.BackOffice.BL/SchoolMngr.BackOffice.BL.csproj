@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\core\base\Pandora.NetStdLibrary.Base.csproj" />
     <ProjectReference Include="..\SchoolMngr.BackOffice.DAL\SchoolMngr.BackOffice.DAL.csproj" />
     <ProjectReference Include="..\SchoolMngr.BackOffice.Model\SchoolMngr.BackOffice.Model.csproj" />
   </ItemGroup>

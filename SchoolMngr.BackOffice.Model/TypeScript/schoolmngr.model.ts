@@ -36,7 +36,7 @@ interface Assingment
 {
 	StartsTime: any;
 	EndsTime: any;
-	Time: any;
+	Duration: any;
 	Day: number;
 	Subject: any;
 	Teacher: any;

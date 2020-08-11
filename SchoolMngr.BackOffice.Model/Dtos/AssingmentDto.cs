@@ -13,7 +13,7 @@ namespace SchoolMngr.BackOffice.Model.Dtos
     {
         public DateTime StartsTime { get; set; }
         public DateTime EndsTime { get; set; }
-        public TimeSpan Time { get { return EndsTime - StartsTime; } }
+        public TimeSpan Duration { get { return EndsTime - StartsTime; } }
         public DayOfWeek Day { get { return StartsTime.DayOfWeek; } }
 
         public Subject Subject { get; set; }
