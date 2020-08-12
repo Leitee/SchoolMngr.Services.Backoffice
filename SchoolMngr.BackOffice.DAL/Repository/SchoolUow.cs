@@ -11,7 +11,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     using System;
     using System.Threading.Tasks;
 
-    public class SchoolUow : IApplicationUow, IDisposable
+    public class SchoolUow : IApplicationUow
     { 
         private readonly SchoolDbContext _dbContext;
         private readonly IEFRepositoryProvider<SchoolDbContext> _repositoryProvider;
@@ -26,6 +26,9 @@ namespace SchoolMngr.BackOffice.DAL.Repository
             _repositoryProvider = repositoryProvider;
             _logger = logger;
         }
+
+        //Call dispose method on destructuring
+        ~SchoolUow() => Dispose(false);
 
         public bool Commit()
         {
@@ -50,16 +53,17 @@ namespace SchoolMngr.BackOffice.DAL.Repository
             return await _dbContext.Database.BeginTransactionAsync();
         }
 
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
+        public IEFRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
         {
             _logger.LogInformation($"Getting repository entity of type {typeof(TEntity)}");
             return _repositoryProvider.GetEFRepositoryForEntityType<TEntity>();
         }
 
-        #region IDisposable
-        //TODO: improve Dispose pattern
-        private bool disposed = false;
+        #region Disposable
+        // To detect redundant calls
+        private bool _disposed = false;
 
+        // Public implementation of Dispose pattern callable by consumers.
         public void Dispose()
         {
             Dispose(true);
@@ -68,11 +72,17 @@ namespace SchoolMngr.BackOffice.DAL.Repository
 
         protected virtual void Dispose(bool disposing)
         {
+            if (_disposed)
+            {
+                return;
+            }
+
             if (disposing)
             {
                 _dbContext?.Dispose();
             }
-            disposed = true;
+
+            _disposed = true;
         }
         #endregion
 
