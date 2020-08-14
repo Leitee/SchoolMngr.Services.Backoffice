@@ -21,7 +21,7 @@ namespace SchoolMngr.BackOffice.DAL
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
                 options.EnableDetailedErrors(dalSettings.IsDevelopment);
                 options.EnableSensitiveDataLogging(dalSettings.IsDevelopment);
-                options.UseNpgsql(dalSettings.DatabaseUrl, sqlOpt =>
+                options.UseSqlServer(dalSettings.DatabaseUrl, sqlOpt =>
                     {
                         sqlOpt.MigrationsHistoryTable("Migrations", "Config");
                     });

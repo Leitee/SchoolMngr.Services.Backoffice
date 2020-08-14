@@ -14,12 +14,12 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     public class SchoolUow : IApplicationUow
     { 
         private readonly SchoolDbContext _dbContext;
-        private readonly IEFRepositoryProvider<SchoolDbContext> _repositoryProvider;
+        private readonly IRepositoryProvider<SchoolDbContext> _repositoryProvider;
         private readonly ILogger<SchoolUow> _logger;
 
         public SchoolUow(
             SchoolDbContext context,
-            IEFRepositoryProvider<SchoolDbContext> repositoryProvider,
+            IRepositoryProvider<SchoolDbContext> repositoryProvider,
             ILogger<SchoolUow> logger)
         {
             _dbContext = context;
@@ -56,7 +56,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         public IEFRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
         {
             _logger.LogInformation($"Getting repository entity of type {typeof(TEntity)}");
-            return _repositoryProvider.GetEFRepositoryForEntityType<TEntity>();
+            return _repositoryProvider.GetRepositoryForEntityType<TEntity>();
         }
 
         #region Disposable

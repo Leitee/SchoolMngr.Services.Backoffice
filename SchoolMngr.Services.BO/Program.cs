@@ -5,11 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Pandora.NetStdLibrary.Base.Common;
 using SchoolMngr.BackOffice.DAL;
-using SchoolMngr.Core.Shared;
 using Serilog;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace SchoolMngr.Services.BO
 {
@@ -36,11 +37,8 @@ namespace SchoolMngr.Services.BO
                         var northwindContext = services.GetRequiredService<SchoolDbContext>();
                         northwindContext.Database.Migrate();
 
-                        //var identityContext = services.GetRequiredService<ApplicationDbContext>();
-                        //identityContext.Database.Migrate();
+                        northwindContext.SeedAll(CancellationToken.None);
 
-                        //var mediator = services.GetRequiredService<IMediator>();
-                        //await mediator.Send(new SeedSampleDataCommand(), CancellationToken.None);
                     }
                     catch (Exception ex)
                     {

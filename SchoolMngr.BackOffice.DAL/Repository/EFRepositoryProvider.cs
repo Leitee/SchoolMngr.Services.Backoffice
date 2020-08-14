@@ -17,7 +17,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     /// Caches repositories of a given type so that repositories are only created once per provider.
     /// Code Camper creates a new provider per client request.
     /// </remarks>
-    public class EFRepositoryProvider<TContext> : IEFRepositoryProvider<TContext> where TContext : SchoolDbContext
+    public class EFRepositoryProvider<TContext> : IRepositoryProvider<TContext> where TContext : SchoolDbContext
     {
         /// <summary>
         /// The <see cref="RepositoryFactories"/> with which to create a new repository.
@@ -51,21 +51,6 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         }
 
         /// <summary>
-        /// Get or create-and-cache the default <see cref="IRepository{T}"/> for an entity of type T.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Root entity type of the <see cref="IRepository{T}"/>.
-        /// </typeparam>
-        /// <remarks>
-        /// If can't find repository in cache, use a factory to create one.
-        /// </remarks>
-        public IRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity
-        {
-            return GetRepository<IRepository<T>>(_repositoryFactories.GetRepositoryFactoryForEntityType<T>());
-        }
-
-
-        /// <summary>
         /// Get or create-and-cache the default <see cref="IEFRepository{T}"/> for an entity of type T.
         /// </summary>
         /// <typeparam name="T">
@@ -74,7 +59,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <remarks>
         /// If can't find repository in cache, use a factory to create one.
         /// </remarks>
-        public IEFRepository<T> GetEFRepositoryForEntityType<T>() where T : class, IEntity
+        public IEFRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity
         {
             return GetRepository<IEFRepository<T>>(_repositoryFactories.GetRepositoryFactoryForEntityType<T>());
         }

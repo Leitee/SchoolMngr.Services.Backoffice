@@ -7,20 +7,23 @@ namespace SchoolMngr.BackOffice.DAL
     using SchoolMngr.BackOffice.Model.Entities;
     using SchoolMngr.BackOffice.Model.Enums;
     using System;
+    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class SchoolMngrContextSeed
+    public static class SchoolMngrContextSeedExtension
     {
-        private readonly SchoolDbContext _context;
+        private static SchoolDbContext _context;
 
-        public SchoolMngrContextSeed(SchoolDbContext context)
+        public static void SeedAll(this SchoolDbContext context, CancellationToken cancellationToken)
         {
-            _context = context;
+            Task.Run(() => SeedAllAsync(context, cancellationToken), cancellationToken);
         }
 
-        public async Task SeedAllAsync(CancellationToken cancellationToken)
+        public static async Task SeedAllAsync(this SchoolDbContext context, CancellationToken cancellationToken)
         {
+            _context = context;
+
             if (await _context.Grades.AnyAsync()) return;
 
             await SeedGradesAsync(cancellationToken);
@@ -36,7 +39,7 @@ namespace SchoolMngr.BackOffice.DAL
             await SeedClassesAsync(cancellationToken);
         }
 
-        private async Task SeedClassesAsync(CancellationToken cancellationToken)
+        private static async Task SeedClassesAsync(CancellationToken cancellationToken)
         {
             _context.Classes.AddRange(
                 new Class
@@ -107,7 +110,7 @@ namespace SchoolMngr.BackOffice.DAL
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task SeedAssigmentsAsync(CancellationToken cancellationToken)
+        private static async Task SeedAssigmentsAsync(CancellationToken cancellationToken)
         {
             _context.Assingments.AddRange(
                 new Assingment
@@ -159,7 +162,7 @@ namespace SchoolMngr.BackOffice.DAL
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task SeedTeachersAsync(CancellationToken cancellationToken)
+        private static async Task SeedTeachersAsync(CancellationToken cancellationToken)
         {
             _context.Teachers.AddRange(
                 new Teacher { Id = 32165498, IdentityUserId = 11 },
@@ -172,7 +175,7 @@ namespace SchoolMngr.BackOffice.DAL
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task SeedSubjectsAsync(CancellationToken cancellationToken)
+        private static async Task SeedSubjectsAsync(CancellationToken cancellationToken)
         {
             _context.Subjects.AddRange(
                 new Subject { Id = 1, CodeName = "Mat1", Description = "Matemáticas" },
@@ -185,7 +188,7 @@ namespace SchoolMngr.BackOffice.DAL
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task SeedGradesAsync(CancellationToken cancellationToken)
+        private static async Task SeedGradesAsync(CancellationToken cancellationToken)
         {
             _context.Grades.AddRange(
                 new Grade { Id = 1, Name = "1er" },
@@ -198,7 +201,7 @@ namespace SchoolMngr.BackOffice.DAL
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task SeedRoomsAsync(CancellationToken cancellationToken)
+        private static async Task SeedRoomsAsync(CancellationToken cancellationToken)
         {
             _context.Rooms.AddRange(
                 new Room { Id = 1, Description = "Aula 1", Capacity = 100 },

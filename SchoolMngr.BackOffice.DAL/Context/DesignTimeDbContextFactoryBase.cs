@@ -46,7 +46,7 @@ namespace SchoolMngr.BackOffice.DAL
 
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
 
-            optionsBuilder.UseNpgsql(connectionString, sqlOpt =>
+            optionsBuilder.UseSqlServer(connectionString, sqlOpt =>
                     sqlOpt.MigrationsHistoryTable("Migrations", "Config"));
 
             return CreateNewInstance(optionsBuilder.Options);
