@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
+    <LangVersion>$(LangTargetVersion)</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pandora.NetStdLibrary.Base" Version="$(PandoraNetStdLibraryBasePackageVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\core\base\Pandora.NetStdLibrary.Base.csproj" />
+    <ProjectReference Include="..\SchoolMngr.BackOffice.DAL\SchoolMngr.Services.Backoffice.DAL.csproj" />
+    <ProjectReference Include="..\SchoolMngr.BackOffice.Model\SchoolMngr.Services.Backoffice.Model.csproj" />
+  </ItemGroup>
+
+</Project>

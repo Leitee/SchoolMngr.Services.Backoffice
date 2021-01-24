@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
+    <LangVersion>$(LangTargetVersion)</LangVersion>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <UserSecretsId>06618d20-2a9a-4153-83db-d3ec8a342597</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyName>SchoolMngr.Services.BO</AssemblyName>
+    <DockerfileContext>..\..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="SchoolMngr.BackOffice.BL\**" />
+    <Compile Remove="SchoolMngr.BackOffice.Model\**" />
+    <Content Remove="SchoolMngr.BackOffice.BL\**" />
+    <Content Remove="SchoolMngr.BackOffice.Model\**" />
+    <EmbeddedResource Remove="SchoolMngr.BackOffice.BL\**" />
+    <EmbeddedResource Remove="SchoolMngr.BackOffice.Model\**" />
+    <None Remove="SchoolMngr.BackOffice.BL\**" />
+    <None Remove="SchoolMngr.BackOffice.Model\**" />
+    <TypeScriptCompile Remove="SchoolMngr.BackOffice.BL\**" />
+    <TypeScriptCompile Remove="SchoolMngr.BackOffice.Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\core\base\Pandora.NetStdLibrary.Base.csproj" />
+    <ProjectReference Include="..\..\..\core\shared\SchoolMngr.Infrastructure.Shared.csproj" />
+    <ProjectReference Include="..\SchoolMngr.BackOffice.DAL\SchoolMngr.Services.Backoffice.DAL.csproj" />
+    <ProjectReference Include="..\SchoolMngr.BackOffice.Model\SchoolMngr.Services.Backoffice.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
