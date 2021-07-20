@@ -5,6 +5,7 @@ namespace SchoolMngr.BackOffice.Model.Dtos
 {
     using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
     using Reinforced.Typings.Attributes;
+    using System;
     using System.Collections.Generic;
 
     [TsInterface(AutoI = false, Name = "Teacher", IncludeNamespace = false)]
@@ -15,7 +16,7 @@ namespace SchoolMngr.BackOffice.Model.Dtos
             Assingments = new List<AssingmentDto>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public bool Deleted { get; set; }
         public string Address { get; set; }
         public bool IsTemporary { get; set; }

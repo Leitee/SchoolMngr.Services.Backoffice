@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SchoolMngr.BackOffice.DAL;
+using SchoolMngr.BackOffice.Model.Dtos;
 using SchoolMngr.BackOffice.Model.Entities;
 
 namespace SchoolMngr.Services.BO.Controllers
@@ -26,7 +27,7 @@ namespace SchoolMngr.Services.BO.Controllers
         }
 
         // GET: Grades/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -54,7 +55,7 @@ namespace SchoolMngr.Services.BO.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id")] Grade grade)
+        public async Task<IActionResult> Create([Bind("Name,Id")] GradeDto grade)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +87,7 @@ namespace SchoolMngr.Services.BO.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Id")] Grade grade)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Id")] GradeDto grade)
         {
             if (id != grade.Id)
             {
@@ -117,7 +118,7 @@ namespace SchoolMngr.Services.BO.Controllers
         }
 
         // GET: Grades/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -137,7 +138,7 @@ namespace SchoolMngr.Services.BO.Controllers
         // POST: Grades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid? id)
         {
             var grade = await _context.Grades.FindAsync(id);
             _context.Grades.Remove(grade);
@@ -145,7 +146,7 @@ namespace SchoolMngr.Services.BO.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GradeExists(int id)
+        private bool GradeExists(Guid id)
         {
             return _context.Grades.Any(e => e.Id == id);
         }

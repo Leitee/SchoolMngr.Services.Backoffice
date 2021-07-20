@@ -39,10 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\core\base\Pandora.NetStdLibrary.Base.csproj" />
-    <ProjectReference Include="..\..\..\core\shared\SchoolMngr.Infrastructure.Shared.csproj" />
-    <ProjectReference Include="..\SchoolMngr.BackOffice.DAL\SchoolMngr.Services.Backoffice.DAL.csproj" />
-    <ProjectReference Include="..\SchoolMngr.BackOffice.Model\SchoolMngr.Services.Backoffice.Model.csproj" />
+    <ProjectReference Include="..\SchoolMngr.Services.Backoffice.BL\SchoolMngr.Services.Backoffice.BL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

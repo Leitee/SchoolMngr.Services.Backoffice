@@ -11,6 +11,7 @@ namespace SchoolMngr.BackOffice.Model.Dtos
     [TsInterface(AutoI = false, Name = "Assingment", IncludeNamespace = false)]
     public sealed class AssingmentDto : IDto
     {
+        public Guid Id { get; set; }
         public DateTime StartsTime { get; set; }
         public DateTime EndsTime { get; set; }
         public TimeSpan Time { get { return EndsTime - StartsTime; } }

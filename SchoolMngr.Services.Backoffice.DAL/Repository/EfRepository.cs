@@ -4,30 +4,65 @@
 namespace SchoolMngr.BackOffice.DAL.Repository
 {
     using Microsoft.EntityFrameworkCore;
+    using Pandora.NetStdLibrary.Abstractions.DomainModel;
     using Pandora.NetStdLibrary.Base.Abstractions.DataAccess;
     using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
     using Pandora.NetStdLibrary.Base.BusinessLogic;
+    using Pandora.NetStdLibrary.Base.DataAccess;
+    using Pandora.NetStdLibrary.Base.DomainModel;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
 
-    public class EfRepository<TEntity> : IEfRepository<TEntity> where TEntity : class, IEntity
+    public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
         protected readonly SchoolDbContext _dbContext;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public EfRepository(SchoolDbContext context)
+        public EFRepository(SchoolDbContext context)
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public async Task<IQueryable<TEntity>> AllAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>,
-            IOrderedQueryable<TEntity>> orderBy, params Expression<Func<IIncludable<TEntity>, IIncludable>>[] includes)
+        public async Task<IQueryable<TEntity>> AllAsync(CancellationToken cancellationToken = default)
         {
-            return await Task.Run(() =>
+            return await AllAsync(null, null, cancellationToken, null);
+        }
+
+        public async Task<IQueryable<TEntity>> AllAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>,
+            IOrderedQueryable<TEntity>> orderBy, CancellationToken cancellationToken = default, params Expression<Func<IIncludable<TEntity>, IIncludable>>[] includes)
+        {
+            try
+            {
+                return await Task.Run(() =>
+                {
+                    IQueryable<TEntity> entities = _dbSet.IncludeMultiple(includes).AsNoTracking();
+
+                    if (predicate != null)
+                    {
+                        entities = entities.Where(predicate);
+                    }
+
+                    return orderBy != null ? orderBy(entities) : entities;
+                }, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
+        }
+
+        public async Task<IPagedListEntity<TEntity>> AllPagedAsync(int skip, int take, int pageSize, int currentPage,
+            Expression<Func<TEntity, bool>> predicate,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+            CancellationToken cancellationToken = default,
+            params Expression<Func<IIncludable<TEntity>, IIncludable>>[] includes)
+        {
+            try
             {
                 IQueryable<TEntity> entities = _dbSet.IncludeMultiple(includes).AsNoTracking();
 
@@ -36,67 +71,86 @@ namespace SchoolMngr.BackOffice.DAL.Repository
                     entities = entities.Where(predicate);
                 }
 
-                return orderBy != null ? orderBy(entities) : entities;
-            });
+                var totalCount = entities.Count();
+                var totalPages = Math.Ceiling((double)totalCount / pageSize);
+
+                return await Task.Run(() =>
+                {
+                    return new PagedListEntity<TEntity>
+                    {
+                        PagedEntities = orderBy != null
+                            ? orderBy(entities).Skip(skip).Take(take)
+                            : entities.Skip(skip).Take(take),
+                        CollectionLength = totalCount,
+                        CurrentPage = currentPage,
+                        RowsPerPage = pageSize,
+                        TotalPages = totalPages
+                    };
+                }, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
         }
 
-        public async Task<BLPagedResponse<TEntity>> AllPagedAsync(int skip, int take, int pageSize, int currentPage,
-            Expression<Func<TEntity, bool>> predicate,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
-            params Expression<Func<IIncludable<TEntity>, IIncludable>>[] includes)
+        public async Task<TEntity> FindAsync(Guid pId)
         {
-            IQueryable<TEntity> entities = _dbSet.IncludeMultiple(includes).AsNoTracking();
-
-            if (predicate != null)
-            {
-                entities = entities.Where(predicate);
-            }
-
-            var totalCount = entities.Count();
-            var totalPages = Math.Ceiling((double)totalCount / pageSize);
-
-            return await Task.Run(() =>
-            {
-                return new BLPagedResponse<TEntity>
-                {
-                    Data = orderBy != null
-                        ? orderBy(entities).Skip(skip).Take(take)
-                        : entities.Skip(skip).Take(take),
-                    CollectionLength = totalCount,
-                    CurrentPage = currentPage,
-                    RowsPerPage = pageSize,
-                    TotalPages = totalPages
-                };
-            });
+            return await FindAsync(x => x.Id.Equals(pId));
         }
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate,
             params Expression<Func<IIncludable<TEntity>, IIncludable>>[] includes)
         {
-            return await _dbSet.IncludeMultiple(includes).AsNoTracking()
-                .FirstOrDefaultAsync(predicate);
+            try
+            {
+                return await _dbSet.IncludeMultiple(includes).AsNoTracking()
+                        .FirstOrDefaultAsync(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
         }
 
-        public async Task<TEntity> GetByIdAsync(object id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            return await _dbSet.FindAsync(id);
+            try
+            {
+                return await _dbSet.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
         }
 
-        public async Task<TEntity> GetByExpressionAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity> GetByExpressionAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await _dbSet.FirstOrDefaultAsync(predicate);
+            try
+            {
+                return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
         }
 
         public async Task<TEntity> InsertAsync(TEntity entity)
         {
-            var result = await Task.Run(() =>
+            try
             {
-                return _dbSet.Add(entity);
-            });
-            return result.Entity;
+                var result = await Task.Run(() => _dbSet.Add(entity));
+                return result.Entity;
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
         }
 
-        public async Task DeleteAsync(object id)
+        public async Task DeleteAsync(Guid id)
         {
             TEntity entity = await GetByIdAsync(id);
             await DeleteAsync(entity);
@@ -104,66 +158,115 @@ namespace SchoolMngr.BackOffice.DAL.Repository
 
         public async Task DeleteAsync(TEntity entityToDelete)
         {
-            //Remove logically
-            if (entityToDelete is ITrackeableEntity)
+            try
             {
-                ((ITrackeableEntity)entityToDelete).Deleted = true;
-                await UpdateAsync(entityToDelete);
-            }
-            else
-            {
-                await Task.Run(() =>
+                //Remove logically
+                if (entityToDelete is IDeleteableEntity entity)
                 {
-                    _dbSet.Attach(entityToDelete);
-                    _dbSet.Remove(entityToDelete);
-                });
+                    entity.Deleted = true;
+                    await UpdateAsync(entityToDelete);
+                }
+                else
+                {
+                    await Task.Run(() =>
+                    {
+                        _dbSet.Attach(entityToDelete);
+                        _dbSet.Remove(entityToDelete);
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
             }
         }
 
         public async Task UpdateAsync(TEntity entityToUpdate)
         {
-            await Task.Run(() =>
+            try
             {
-                _dbContext.Entry(entityToUpdate).State = EntityState.Modified;
-            });
-        }
+                //To avoid error due EF is already traking this entity 
+                var trackedEntity = _dbContext.ChangeTracker.Entries<TEntity>()
+                    .SingleOrDefault(e => e.Entity.Id == entityToUpdate.Id && e.State != EntityState.Detached);
+                if (trackedEntity != null)
+                    trackedEntity.State = EntityState.Detached;
 
-        public async Task<int> GetCountAsync()
-        {
-            return await Task.Run(() =>
-            {
-                return _dbSet.Count();
-            });
-        }
-
-        public async Task<int> GetCountByExpressionAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await Task.Run(() =>
-            {
-                return _dbSet.Count(predicate);
-            });
-        }
-
-        public async Task<int> ExecuteQueryAsync(string query, params object[] paramaters)
-        {
-            return await _dbContext.Database.ExecuteSqlCommandAsync(query, paramaters);
-        }
-
-        public async Task<List<TEntity>> ExecSp(string spName, params object[] parameters)
-        {
-            var tEntity = new List<TEntity>();
-            var spResult = await Task.Run(() => _dbSet.FromSqlRaw(spName, parameters));
-            foreach (var item in spResult)
-            {
-                tEntity.Add(item);
+                await Task.Run(() =>
+                {
+                    _dbContext.Update(entityToUpdate);
+                });
             }
-
-            return tEntity;
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
         }
 
-        public async Task<bool> ExistAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbSet.AnyAsync(predicate);
+            try
+            {
+                return await GetCountByExpressionAsync(null, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
+        }
+
+        public async Task<int> GetCountByExpressionAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                return await _dbSet.CountAsync(predicate, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
+        }
+
+        public async Task<IQueryable<TEntity>> ExecuteQueryAsync(string query, CancellationToken cancellationToken = default, params object[] paramaters)
+        {
+            try
+            {
+                return await Task.Run(() => _dbSet.FromSqlRaw(query, paramaters), cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
+        }
+
+        public async Task<List<TEntity>> ExecSp(string spName, CancellationToken cancellationToken = default, params object[] parameters)
+        {
+            try
+            {
+                var tEntity = new List<TEntity>();
+                var spResult = await Task.Run(() => _dbSet.FromSqlRaw($"EXEC {spName}", parameters), cancellationToken);
+                foreach (var item in spResult)
+                {
+                    tEntity.Add(item);
+                }
+
+                return tEntity;
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
+        }
+
+        public async Task<bool> ExistAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                return await _dbSet.AnyAsync(predicate, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessTierException(ex);
+            }
         }
     }
 }

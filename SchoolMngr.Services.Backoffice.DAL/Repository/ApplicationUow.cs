@@ -8,6 +8,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     using Pandora.NetStdLibrary.Base.Abstractions.DataAccess;
     using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public class ApplicationUow<TContext> : IApplicationUow, IDisposable where TContext : SchoolDbContext
@@ -33,7 +34,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <summary>
         /// Save pending changes to the database asyncly and return the amount of affected rows
         /// </summary>
-        public async Task<bool> CommitAsync()
+        public async Task<bool> CommitAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext.SaveChangesAsync() > 0;
         }
@@ -51,7 +52,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// For transaction handling asyncly
         /// </summary>
         /// <returns></returns>
-        public async Task<IDbContextTransaction> StartTransactionAsync()
+        public async Task<IDbContextTransaction> StartTransactionAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext.Database.BeginTransactionAsync();
         }
@@ -76,7 +77,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         }
         #endregion
 
-        public IEfRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
         {
             return _repositoryProvider.GetRepositoryForEntityType<TEntity>();
         }

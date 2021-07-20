@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reinforced.Typings" Version="1.5.7" />
+    <PackageReference Include="Reinforced.Typings" Version="1.5.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\core\base\Pandora.NetStdLibrary.Base\Pandora.NetStdLibrary.Base.csproj" />
+    <ProjectReference Include="..\..\..\infrastructure\shared\SchoolMngr.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

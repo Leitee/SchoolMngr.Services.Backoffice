@@ -115,7 +115,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <typeparam name="T">Type of the repository's root entity</typeparam>
         protected virtual Func<TContext, object> DefaultEntityRepositoryFactory<T>() where T : class, IEntity
         {
-            return dbContext => new EfRepository<T>(dbContext);
+            return dbContext => new EFRepository<T>(dbContext);
         }
     }
 }

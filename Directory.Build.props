@@ -1,0 +1,36 @@
+<Project>  
+  <PropertyGroup Label="SDK and Lang Versions">
+    <NetStandardTargetVersion>netstandard2.1</NetStandardTargetVersion>
+    <NetCoreTargetVersion>net5.0</NetCoreTargetVersion>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  
+  <ItemGroup Label="Global Package Imports">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <PropertyGroup Label="Global Package Versions">
+    <FitnnerSharedPackage>0.4.2</FitnnerSharedPackage>
+    <EntityFrameworkAllPackageVersion>5.0.7</EntityFrameworkAllPackageVersion>
+    <MicrosoftExtensionsConfigurationAllPackageVersion>5.0.0</MicrosoftExtensionsConfigurationAllPackageVersion>
+  </PropertyGroup>
+
+  <!--DO NOT CHANGE CODE BELOW-->
+  <!--<PropertyGroup Label="Check If Exist">
+    <SharedProject>$([MSBuild]::GetPathOfFileAbove('Fitnner.Infrastructure.Shared.csproj', '$(MSBuildThisFileDirectory)../../infrastructure/shared'))</SharedProject>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="Exists('$(SharedProject)')">
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\infrastructure\shared\Fitnner.Infrastructure.Shared.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Fitnner.Infrastructure.Shared" Version="$(FitnnerSharedPackage)" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>-->
+
+</Project>
