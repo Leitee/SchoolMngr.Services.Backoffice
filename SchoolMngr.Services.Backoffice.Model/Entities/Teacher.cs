@@ -3,8 +3,8 @@
 /// </summary>
 namespace SchoolMngr.BackOffice.Model.Entities
 {
-    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Pandora.NetStdLibrary.Base.DomainModel;
+    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Codeit.NetStdLibrary.Base.DomainModel;
     using System.Collections.Generic;
 
     public class Teacher : EFEntity, IDeleteableEntity

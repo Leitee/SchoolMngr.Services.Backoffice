@@ -35,7 +35,7 @@
 			in attributes and in fluent methods then configuration from fluent methods will
 			be used.
 		-->
-    <RtConfigurationMethod>Pandora.NetStandard.Model.ReinforcedTypingsConfiguration.Configure</RtConfigurationMethod>
+    <RtConfigurationMethod>Codeit.NetStandard.Model.ReinforcedTypingsConfiguration.Configure</RtConfigurationMethod>
 
     <!--
 			By default all of your typings will be located in single file specified by RtTargetFile.

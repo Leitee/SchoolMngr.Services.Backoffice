@@ -4,9 +4,9 @@
 namespace SchoolMngr.BackOffice.DAL.Repository
 {
     using Microsoft.EntityFrameworkCore.Storage;
-    using Pandora.NetStdLibrary.Base.Abstractions;
-    using Pandora.NetStdLibrary.Base.Abstractions.DataAccess;
-    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Codeit.NetStdLibrary.Base.Abstractions;
+    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
+    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
     using System;
     using System.Threading;
     using System.Threading.Tasks;

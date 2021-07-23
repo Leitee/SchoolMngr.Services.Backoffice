@@ -3,13 +3,11 @@
 /// </summary>
 namespace SchoolMngr.BackOffice.DAL.Repository
 {
+    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
+    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.NetStdLibrary.Base.DomainModel;
     using Microsoft.EntityFrameworkCore;
-    using Pandora.NetStdLibrary.Abstractions.DomainModel;
-    using Pandora.NetStdLibrary.Base.Abstractions.DataAccess;
-    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Pandora.NetStdLibrary.Base.BusinessLogic;
-    using Pandora.NetStdLibrary.Base.DataAccess;
-    using Pandora.NetStdLibrary.Base.DomainModel;
     using System;
     using System.Collections.Generic;
     using System.Linq;

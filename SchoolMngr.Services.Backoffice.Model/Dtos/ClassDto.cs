@@ -3,9 +3,9 @@
 /// </summary>
 namespace SchoolMngr.BackOffice.Model.Dtos
 {
-    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Pandora.NetStdLibrary.Base.Common;
-    using Pandora.NetStdLibrary.Base.Utils;
+    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Codeit.NetStdLibrary.Base.Common;
+    using Codeit.NetStdLibrary.Base.Utils;
     using Reinforced.Typings.Attributes;
     using SchoolMngr.BackOffice.Model.Enums;
     using System;

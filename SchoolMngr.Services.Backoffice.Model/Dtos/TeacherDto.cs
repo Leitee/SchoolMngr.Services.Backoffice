@@ -3,7 +3,7 @@
 /// </summary>
 namespace SchoolMngr.BackOffice.Model.Dtos
 {
-    using Pandora.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
     using Reinforced.Typings.Attributes;
     using System;
     using System.Collections.Generic;

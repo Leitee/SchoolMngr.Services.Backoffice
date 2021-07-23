@@ -6,7 +6,7 @@ namespace SchoolMngr.BackOffice.DAL
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Pandora.NetStdLibrary.Base.DataAccess;
+    using Codeit.NetStdLibrary.Base.DataAccess;
 
     public static class DependencyInjection
     {

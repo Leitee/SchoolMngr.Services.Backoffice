@@ -3,7 +3,7 @@
 /// </summary>
 namespace SchoolMngr.BackOffice.Model.Entities
 {
-    using Pandora.NetStdLibrary.Base.DomainModel;
+    using Codeit.NetStdLibrary.Base.DomainModel;
     using System;
 
     public class Assingment : AuditableEntity

@@ -34,6 +34,7 @@ enum StudentStateEnum {
 }
 interface Assingment
 {
+	Id: any;
 	StartsTime: any;
 	EndsTime: any;
 	Time: any;
@@ -43,7 +44,7 @@ interface Assingment
 }
 interface Class
 {
-	Id: number;
+	Id: any;
 	Name: string;
 	Shift: ShiftTimeEnum;
 	ShiftDescription: string;
@@ -52,12 +53,12 @@ interface Class
 }
 interface Grade
 {
-	Id: number;
+	Id: any;
 	Name: string;
 }
 interface Room
 {
-	Id: number;
+	Id: any;
 	Description: string;
 	Capacity: number;
 	HasNetworkConexion: boolean;
@@ -65,6 +66,7 @@ interface Room
 }
 interface Subject
 {
+	Id: any;
 	CodeName: string;
 	Description: string;
 	Required: any;
@@ -73,7 +75,7 @@ interface Subject
 }
 interface Teacher
 {
-	Id: number;
+	Id: any;
 	Deleted: boolean;
 	Address: string;
 	IsTemporary: boolean;

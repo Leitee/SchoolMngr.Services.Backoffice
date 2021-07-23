@@ -40,7 +40,7 @@ namespace SchoolMngr.BackOffice.DAL
                 new ApplicationRole(RolesEnum.STUDENT.GetDescription(), "Limited functionality just student-relative permissions") { Id = RolesEnum.STUDENT.GetId() }
             });
 
-            builder.Entity<ApplicationUser>().HasData(new ApplicationUser("devadmin", "info@pandorasistemas.com", "Jhon", "Doe")
+            builder.Entity<ApplicationUser>().HasData(new ApplicationUser("devadmin", "info@Codeitsistemas.com", "Jhon", "Doe")
             {
                 Id = -1,
                 EmailConfirmed = true,

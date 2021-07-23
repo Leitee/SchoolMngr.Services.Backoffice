@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using Pandora.NetStdLibrary.Base.DataAccess;
+using Codeit.NetStdLibrary.Base.DataAccess;
 using System;
 using System.IO;
 

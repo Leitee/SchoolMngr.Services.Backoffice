@@ -10,25 +10,25 @@
   </ItemGroup>
 
   <PropertyGroup Label="Global Package Versions">
-    <FitnnerSharedPackage>0.4.2</FitnnerSharedPackage>
+    <SchoolMngrSharedPackage>0.4.2</SchoolMngrSharedPackage>
     <EntityFrameworkAllPackageVersion>5.0.7</EntityFrameworkAllPackageVersion>
     <MicrosoftExtensionsConfigurationAllPackageVersion>5.0.0</MicrosoftExtensionsConfigurationAllPackageVersion>
   </PropertyGroup>
 
   <!--DO NOT CHANGE CODE BELOW-->
   <!--<PropertyGroup Label="Check If Exist">
-    <SharedProject>$([MSBuild]::GetPathOfFileAbove('Fitnner.Infrastructure.Shared.csproj', '$(MSBuildThisFileDirectory)../../infrastructure/shared'))</SharedProject>
+    <SharedProject>$([MSBuild]::GetPathOfFileAbove('SchoolMngr.Infrastructure.Shared.csproj', '$(MSBuildThisFileDirectory)../../infrastructure/shared'))</SharedProject>
   </PropertyGroup>
 
   <Choose>
     <When Condition="Exists('$(SharedProject)')">
       <ItemGroup>
-        <ProjectReference Include="..\..\..\infrastructure\shared\Fitnner.Infrastructure.Shared.csproj" />
+        <ProjectReference Include="..\..\..\infrastructure\shared\SchoolMngr.Infrastructure.Shared.csproj" />
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="Fitnner.Infrastructure.Shared" Version="$(FitnnerSharedPackage)" />
+        <PackageReference Include="SchoolMngr.Infrastructure.Shared" Version="$(SchoolMngrSharedPackage)" />
       </ItemGroup>
     </Otherwise>
   </Choose>-->

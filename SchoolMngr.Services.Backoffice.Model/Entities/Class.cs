@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SchoolMngr.BackOffice.Model.Enums;
-using Pandora.NetStdLibrary.Base.DomainModel;
+using Codeit.NetStdLibrary.Base.DomainModel;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
