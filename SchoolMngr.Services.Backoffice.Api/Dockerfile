@@ -1,23 +1,26 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["src/services/admin/SchoolMngr.Services.BO/SchoolMngr.Services.BO.csproj", "src/services/admin/SchoolMngr.Services.BO/"]
-COPY ["src/services/admin/SchoolMngr.BackOffice.DAL/SchoolMngr.BackOffice.DAL.csproj", "src/services/admin/SchoolMngr.BackOffice.DAL/"]
-COPY ["src/services/admin/SchoolMngr.BackOffice.Model/SchoolMngr.BackOffice.Model.csproj", "src/services/admin/SchoolMngr.BackOffice.Model/"]
-COPY ["src/core/base/Pandora.NetStdLibrary.Base.csproj", "src/core/base/"]
-RUN dotnet restore "src/services/admin/SchoolMngr.Services.BO/SchoolMngr.Services.BO.csproj"
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice.Api/SchoolMngr.Services.Backoffice.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.Api/"]
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice.BL/SchoolMngr.Services.Backoffice.BL.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.BL/"]
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice.DAL/SchoolMngr.Services.Backoffice.DAL.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.DAL/"]
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice.Model/SchoolMngr.Services.Backoffice.Model.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.Model/"]
+COPY ["infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj", "infrastructure/shared/"]
+COPY ["../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.csproj", "../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base/"]
+COPY ["../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.Abstractions/Codeit.NetStdLibrary.Base.Abstractions.csproj", "../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.Abstractions/"]
+RUN dotnet restore "microservices/admin/SchoolMngr.Services.Backoffice.Api/SchoolMngr.Services.Backoffice.csproj"
 COPY . .
-WORKDIR "/src/src/services/admin/SchoolMngr.Services.BO"
-RUN dotnet build "SchoolMngr.Services.BO.csproj" -c Release -o /app/build
+WORKDIR "/src/microservices/admin/SchoolMngr.Services.Backoffice.Api"
+RUN dotnet build "SchoolMngr.Services.Backoffice.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SchoolMngr.Services.BO.csproj" -c Release -o /app/publish
+RUN dotnet publish "SchoolMngr.Services.Backoffice.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

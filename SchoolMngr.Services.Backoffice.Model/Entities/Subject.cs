@@ -11,8 +11,8 @@ namespace SchoolMngr.BackOffice.Model.Entities
         public string CodeName { get; set; }
         public string Description { get; set; }
 
-        public virtual int? RequiredId { get; set; }
-        public virtual Subject Required { get; set; }
+        public virtual int? PerRequiredId { get; set; }
+        public virtual Subject PreRequired { get; set; }
         public virtual int GradeId { get; set; }
         public virtual Grade Grade { get; set; }
         public virtual ICollection<Assingment> Assingments { get; set; }
@@ -20,7 +20,7 @@ namespace SchoolMngr.BackOffice.Model.Entities
 
         //TODO: move to configuration file
         #region subject constrains
-        public short MaxAbsencesAllowed { get; set; }
+        public short MinAttendanceRequired { get; set; }
         public short MinExamScoreRequired { get; set; }
 
         #endregion

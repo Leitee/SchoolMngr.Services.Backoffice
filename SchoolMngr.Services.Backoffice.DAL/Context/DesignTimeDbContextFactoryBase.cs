@@ -31,7 +31,7 @@ namespace SchoolMngr.BackOffice.DAL
                 .AddEnvironmentVariables()
                 .Build();
 
-            return Create(DALSettings.GetSettings(configuration).DatabaseUrl);
+            return Create(DALSettings.GetSettings(configuration).DatabaseConnection);
         }
 
         private TContext Create(string connectionString)

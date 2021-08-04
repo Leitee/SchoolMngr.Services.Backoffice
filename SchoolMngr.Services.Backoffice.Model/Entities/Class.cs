@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Codeit.NetStdLibrary.Base.DomainModel;
 using SchoolMngr.BackOffice.Model.Enums;
-using Codeit.NetStdLibrary.Base.DomainModel;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System;
 
 namespace SchoolMngr.BackOffice.Model.Entities
@@ -21,6 +17,6 @@ namespace SchoolMngr.BackOffice.Model.Entities
         public virtual int AssingmentId { get; set; }
         public virtual Assingment Assingment { get; set; }
         public virtual int ClassRoomId { get; set; }
-        public virtual Room ClassRoom { get; set; }
+        public virtual ClassRoom ClassRoom { get; set; }
     }
 }

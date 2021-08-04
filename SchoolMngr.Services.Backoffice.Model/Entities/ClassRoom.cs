@@ -5,7 +5,7 @@ namespace SchoolMngr.BackOffice.Model.Entities
 {
     using Codeit.NetStdLibrary.Base.DomainModel;
 
-    public class Room : EFEntity
+    public class ClassRoom : EFEntity
     {
         public string Description { get; set; }
         public short Capacity { get; set; }

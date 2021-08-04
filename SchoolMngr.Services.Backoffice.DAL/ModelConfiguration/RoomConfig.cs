@@ -7,9 +7,9 @@ namespace SchoolMngr.BackOffice.DAL.ModelConfiguration
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using SchoolMngr.BackOffice.Model.Entities;
 
-    public class RoomConfig : IEntityTypeConfiguration<Room>
+    public class RoomConfig : IEntityTypeConfiguration<ClassRoom>
     {
-        public void Configure(EntityTypeBuilder<Room> builder)
+        public void Configure(EntityTypeBuilder<ClassRoom> builder)
         {
             builder.ToTable("ClassRooms", "BO");
             builder.Property(e => e.Id).HasColumnName("ClassRoomID");

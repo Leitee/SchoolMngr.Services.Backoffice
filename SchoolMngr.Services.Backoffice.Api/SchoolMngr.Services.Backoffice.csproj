@@ -7,7 +7,7 @@
     <UserSecretsId>06618d20-2a9a-4153-83db-d3ec8a342597</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <AssemblyName>SchoolMngr.Services.BO</AssemblyName>
-    <DockerfileContext>..\..\..\..</DockerfileContext>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
