@@ -1,9 +1,8 @@
-﻿using Reinforced.Typings.Attributes;
-using System.ComponentModel;
-
-namespace SchoolMngr.BackOffice.Model.Enums
+﻿
+namespace SchoolMngr.Services.Model.Enums
 {
-    [TsEnum(IncludeNamespace = false)]
+    using System.ComponentModel;
+
     public enum ExamTypeEnum
     {
         [Description("Primer")]

@@ -1,59 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Pandora.NetStandard.Model.Entities.Class" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7" Y="0.5" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="SchoolMngr.BackOffice.Model.Entities.Assignment">
+    <Position X="7.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAgAAAAAAAQAAAAAAAAEEAAAAAEAAAA=</HashCode>
+      <HashCode>AgEAAAAgAAAAAAAAAAIACAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Assignment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolMngr.BackOffice.Model.Entities.Class">
+    <Position X="3" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAMAABAAgAAIEAFAgAAAgAACAAAAAAAAAABAA=</HashCode>
       <FileName>Entities\Class.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Pandora.NetStdLibrary.Model.Entities.Grade" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7" Y="1.5" Width="1.5" />
+  <Class Name="SchoolMngr.BackOffice.Model.Entities.ClassRoom">
+    <Position X="0.5" Y="1.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Entities\Grade.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Pandora.NetStandard.Model.Entities.Student" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="8.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAKAAAAAAAAAACQACAAAAAAAAAAAAACAAAAAAAgCAA=</HashCode>
-      <FileName>Entities\Student.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Pandora.NetStdLibrary.Model.Entities.Subject" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Entities\Subject.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Pandora.NetStandard.Model.Entities.ClassRoom" Collapsed="true">
-    <Position X="8.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAgAAgAAAAAAAAACACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAgAEgAAAAAAAAACAAAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Entities\ClassRoom.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Pandora.NetStdLibrary.Model.Entities.StudentState" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5.25" Y="2.5" Width="1.5" />
+  <Class Name="SchoolMngr.BackOffice.Model.Dtos.EnrollmentDto">
+    <Position X="0.5" Y="8.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Entities\StudentState.cs</FileName>
+      <HashCode>EAAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\EnrollmentDto.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Pandora.NetStandard.Model.Entities.Attend" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+  <Class Name="SchoolMngr.BackOffice.Model.Entities.Subject">
+    <Position X="4.5" Y="7.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAUAAAAAAAAKAAAAAAAAAAAAABAAAAAAACAAA=</HashCode>
-      <FileName>Entities\Attend.cs</FileName>
+      <HashCode>AAAAAAAgAAAAAIAAAAIAUAAAEAAAAgAQEBAAAAEAAAA=</HashCode>
+      <FileName>Entities\Subject.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolMngr.BackOffice.Model.Entities.Teacher" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAEAAQFAAAAAAAIAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Teacher.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="SchoolMngr.BackOffice.Model.Entities.Grade">
+    <Position X="0.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Grade.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

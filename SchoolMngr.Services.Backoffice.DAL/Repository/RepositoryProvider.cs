@@ -1,13 +1,11 @@
-﻿/// <summary>
-/// 
-/// </summary>
-namespace SchoolMngr.BackOffice.DAL.Repository
+﻿
+namespace SchoolMngr.Services.Backoffice.DAL.Repository
 {
     using Codeit.NetStdLibrary.Base.Abstractions;
     using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
     using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Codeit.NetStdLibrary.Base.Abstractions.Identity;
     using Codeit.NetStdLibrary.Base.DataAccess;
+    using SchoolMngr.Services.Backoffice.DAL.Context;
     using System;
     using System.Collections.Generic;
 
@@ -18,7 +16,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
     /// Caches repositories of a given type so that repositories are only created once per provider.
     /// Code Camper creates a new provider per client request.
     /// </remarks>
-    public class RepositoryProvider<TContext> : IRepositoryProvider<TContext> where TContext : SchoolDbContext
+    public class RepositoryProvider<TContext> : IRepositoryProvider<TContext> where TContext : BackofficeDbContext
     {
         /// <summary>
         /// The <see cref="RepositoryFactories"/> with which to create a new repository.
@@ -26,7 +24,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <remarks>
         /// Should be initialized by constructor injection
         /// </remarks>
-        private readonly RepositoryFactories<TContext> _repositoryFactories;
+        private readonly BackofficeRepositoryFactory _repositoryFactories;
 
         /// <summary>
         /// Get and set the <see cref="DbContext"/> with which to initialize a repository
@@ -44,15 +42,11 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// </remarks>
         protected Dictionary<Type, object> Repositories { get; private set; }
 
-        public RepositoryProvider(TContext dbContext, IUserRepository userRepository, IRoleRepository roleRepository)
+        public RepositoryProvider(TContext dbContext)
         {
             DbContext = dbContext;
             Repositories = new Dictionary<Type, object>();
-            _repositoryFactories = new RepositoryFactories<TContext>(new Dictionary<Type, Func<TContext, object>>
-            {
-                {typeof(IUserRepository), _dbContext => userRepository},
-                {typeof(IRoleRepository), _dbContext => roleRepository},
-            });
+            _repositoryFactories = new BackofficeRepositoryFactory();
         }
 
         /// <summary>
@@ -64,7 +58,7 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         /// <remarks>
         /// If can't find repository in cache, use a factory to create one.
         /// </remarks>
-        public IRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity
+        public IRepository<T> GetRepositoryForEntityType<T>() where T : class, IEntity<Guid>
         {
             return GetRepository<IRepository<T>>(_repositoryFactories.GetRepositoryFactoryForEntityType<T>());
         }
@@ -135,5 +129,16 @@ namespace SchoolMngr.BackOffice.DAL.Repository
         }
 
 
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class BackofficeRepositoryFactory : RepositoryFactories<BackofficeDbContext>
+    {
+        protected override Func<BackofficeDbContext, object> DefaultEntityRepositoryFactory<TEntity>()
+        {
+            return dbContext => new BackofficeEFRepository<TEntity>(dbContext);
+        }
     }
 }

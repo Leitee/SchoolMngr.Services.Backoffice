@@ -1,32 +1,40 @@
-﻿/// <summary>
-/// /
-/// </summary>
-namespace SchoolMngr.BackOffice.DAL
+﻿
+namespace SchoolMngr.Services.Backoffice.DAL
 {
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
+    using SchoolMngr.Services.Backoffice.DAL.Repository;
+    using Codeit.NetStdLibrary.Base.Abstractions;
+    using SchoolMngr.Services.Backoffice.DAL.Context;
+    using System;
 
     public static class DependencyInjection
     {
-        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistenceLayer(this IServiceCollection services, string sectionKey)
         {
-            var dalSettings = DALSettings.GetSettings(configuration ?? throw new DataAccessTierException(nameof(configuration)));
-
-            services.AddDbContext<SchoolDbContext>(options =>
+            DALSettings dalSettings;
+            using (var servProv = services.BuildServiceProvider())
             {
-                //optionsBuilder.UseLazyLoadingProxies(); //If you want to apply LL globally and avoid to include manually on each entity
-                options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-                options.EnableDetailedErrors(dalSettings.IsDevelopment);
-                options.EnableSensitiveDataLogging(dalSettings.IsDevelopment);
-                options.UseSqlServer(dalSettings.DatabaseConnection, sqlOpt =>
-                {
-                    sqlOpt.MigrationsHistoryTable("Migrations", "Config");
-                });
-            });
+                var config = servProv.GetService<IConfiguration>();
+                dalSettings = config.GetSection(sectionKey).Get<DALSettings>();
+            }
 
-            //services.AddScoped<SchoolDbContext>(provider => provider.GetService<SchoolDbContext>());
+            if(dalSettings is null)
+                throw new ArgumentNullException(nameof(dalSettings));
+
+            services.Configure<DALSettings>(sp => sp = dalSettings);
+            var efPersistenceBuilder = EFPersistenceBuilder.Build(dalSettings);
+
+            //uow
+            services
+                .AddScoped<IApplicationUow, BackofficeUow>()
+                .AddDbContext<BackofficeDbContext>(efPersistenceBuilder.BuildConfiguration);
+
+            //repository
+            services.AddScoped<IRepositoryProvider<BackofficeDbContext>, RepositoryProvider<BackofficeDbContext>>();
+            services.AddSingleton<BackofficeRepositoryFactory>();
 
             return services;
         }

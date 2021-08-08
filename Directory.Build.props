@@ -14,7 +14,12 @@
     <EntityFrameworkAllPackageVersion>5.0.7</EntityFrameworkAllPackageVersion>
     <MicrosoftExtensionsConfigurationAllPackageVersion>5.0.0</MicrosoftExtensionsConfigurationAllPackageVersion>
   </PropertyGroup>
-
+  
+  <!-- Importing Shared project globally -->
+   <ItemGroup>
+    <ProjectReference Include="..\..\..\infrastructure\shared\SchoolMngr.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+  
   <!--DO NOT CHANGE CODE BELOW-->
   <!--<PropertyGroup Label="Check If Exist">
     <SharedProject>$([MSBuild]::GetPathOfFileAbove('SchoolMngr.Infrastructure.Shared.csproj', '$(MSBuildThisFileDirectory)../../infrastructure/shared'))</SharedProject>

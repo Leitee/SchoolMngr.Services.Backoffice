@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Reinforced.Typings" Version="1.5.9" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SchoolMngr.Services.Backoffice.DAL\SchoolMngr.Services.Backoffice.DAL.csproj" />
   </ItemGroup>
 

@@ -1,24 +1,33 @@
-﻿/// <summary>
-/// 
-/// </summary>
-namespace SchoolMngr.BackOffice.Model.Dtos
+﻿
+namespace SchoolMngr.Services.Model.Dtos
 {
     using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Codeit.NetStdLibrary.Base.Common;
-    using Codeit.NetStdLibrary.Base.Utils;
-    using Reinforced.Typings.Attributes;
-    using SchoolMngr.BackOffice.Model.Enums;
+    using SchoolMngr.Services.Model.Enums;
     using System;
+    using System.Collections.Generic;
 
-    [TsInterface(AutoI = false, Name = "Class", IncludeNamespace = false)]
     public  sealed class ClassDto : IDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public ShiftTimeEnum Shift { get; set; }
-        public string ShiftDescription { get { return Shift.GetDescription(); } }
 
-        public AssingmentDto Assingment { get; set; }
-        public RoomDto ClassRoom { get; set; }
+        public ClassDto()
+        {
+            Assingments = new List<AssignmentDto>();
+            Enrollments = new List<EnrollmentDto>();
+        }
+        public Guid Id { get; set; }
+        public string DivisionName { get; set; }
+        public ShiftTimeEnum Shift { get; set; }
+        public DateTime StartsAt { get; set; }
+        public DateTime EndsAt { get; set; }
+        public DayOfWeek Day { get; set; }
+        public short EnrolledQty { get; set; }
+        public bool Deleted { get; set; }
+
+        public SubjectDto Subject { get; set; }
+
+        public ClassRoomDto ClassRoom { get; set; }
+
+        public ICollection<AssignmentDto> Assingments { get; set; }
+        public ICollection<EnrollmentDto> Enrollments { get; set; }
     }
 }

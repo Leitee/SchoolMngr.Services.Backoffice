@@ -1,28 +1,27 @@
-﻿/// <summary>
-/// 
-/// </summary>
-namespace SchoolMngr.BackOffice.Model.Entities
+﻿
+namespace SchoolMngr.Services.Model.Entities
 {
+    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
     using Codeit.NetStdLibrary.Base.DomainModel;
+    using System;
     using System.Collections.Generic;
 
-    public class Subject : EFEntity
+    public class Subject : EFEntity, IDeleteableEntity
     {
         public string CodeName { get; set; }
-        public string Description { get; set; }
-
-        public virtual int? PerRequiredId { get; set; }
-        public virtual Subject PreRequired { get; set; }
-        public virtual int GradeId { get; set; }
-        public virtual Grade Grade { get; set; }
-        public virtual ICollection<Assingment> Assingments { get; set; }
-
-
-        //TODO: move to configuration file
-        #region subject constrains
-        public short MinAttendanceRequired { get; set; }
+        public string FullName { get; set; }
+        public short MaxAbsencesAllowed { get; set; }
         public short MinExamScoreRequired { get; set; }
+        public bool Deleted { get; set; }
 
-        #endregion
+        public Guid? NextAvailableId { get; set; }
+        public virtual Subject NextAvailable { get; set; }
+
+        public virtual ISet<Subject> PreviousRequired { get; set; }
+
+        public int GradeId { get; set; }
+        public virtual Grade Grade { get; set; }
+
+        public virtual Class Class { get; set; }
     }
 }

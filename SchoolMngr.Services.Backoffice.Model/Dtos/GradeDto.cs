@@ -1,16 +1,19 @@
-﻿/// <summary>
-/// 
-/// </summary>
-namespace SchoolMngr.BackOffice.Model.Dtos
+﻿
+namespace SchoolMngr.Services.Model.Dtos
 {
     using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Reinforced.Typings.Attributes;
-    using System;
+    using System.Collections.Generic;
 
-    [TsInterface(AutoI = false, Name = "Grade", IncludeNamespace = false)]
-    public sealed class GradeDto : IDto
+    public sealed class GradeDto : IDto<int>
     {
-        public Guid Id { get; set; }
+        public GradeDto()
+        {
+            Subjects = new List<SubjectDto>();
+        }
+
+        public int Id { get; set; }
         public string Name { get; set; }
+
+        public ICollection<SubjectDto> Subjects { get; set; }
     }
 }

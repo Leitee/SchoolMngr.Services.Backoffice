@@ -1,28 +1,33 @@
-﻿/// <summary>
-/// 
-/// </summary>
-namespace SchoolMngr.BackOffice.Model.Dtos
+﻿
+namespace SchoolMngr.Services.Model.Dtos
 {
     using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Reinforced.Typings.Attributes;
-    using SchoolMngr.BackOffice.Model.Entities;
     using System;
     using System.Collections.Generic;
 
-    [TsInterface(AutoI = false, Name = "Subject", IncludeNamespace = false)]
     public sealed class SubjectDto : IDto
     {
         public SubjectDto()
         {
-            Assingments = new List<AssingmentDto>();
+            Assingments = new List<AssignmentDto>();
+            PreviousRequired = new List<SubjectDto>();
         }
 
         public Guid Id { get; set; }
         public string CodeName { get; set; }
-        public string Description { get; set; }
+        public string FullName { get; set; }
+        public short MaxAbsencesAllowed { get; set; }
+        public short MinExamScoreRequired { get; set; }
+        public bool Deleted { get; set; }
 
-        public Subject Required { get; set; }
-        public Grade Grade { get; set; }
-        public ICollection<AssingmentDto> Assingments { get; set; }
+        public Guid? NextAvailableId { get; set; }
+        public SubjectDto NextAvailable { get; set; }
+
+        public ICollection<SubjectDto> PreviousRequired { get; set; }
+
+        public GradeDto Grade { get; set; }
+
+        public ClassDto Class { get; set; }
+        public ICollection<AssignmentDto> Assingments { get; set; }
     }
 }
