@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mappers\AgendaMapper.cs" />
+    <Compile Remove="Mappers\CategoryMapper.cs" />
+    <Compile Remove="Mappers\LabelMapper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Reinforced.Typings" Version="1.5.9" />
   </ItemGroup>
 

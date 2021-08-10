@@ -3,8 +3,8 @@ namespace SchoolMngr.Services.Backoffice.BL.TSConfig
 {
     using Reinforced.Typings.Ast.TypeNames;
     using Reinforced.Typings.Fluent;
-    using SchoolMngr.Services.Model.Dtos;
-    using SchoolMngr.Services.Model.Enums;
+    using SchoolMngr.Services.Backoffice.BL.Dtos;
+    using SchoolMngr.Services.Backoffice.Model.Enums;
 
     public static class TSMappingConfiguration
     {

@@ -2,7 +2,7 @@
 namespace SchoolMngr.Services.Backoffice.DAL.Context
 {
     using Microsoft.EntityFrameworkCore;
-    using SchoolMngr.Services.Model.Entities;
+    using SchoolMngr.Services.Backoffice.Model.Entities;
     using System.Reflection;
 
     public class BackofficeDbContext : DbContext

@@ -1,7 +1,7 @@
 ﻿
 namespace SchoolMngr.Services.Backoffice.DAL.Context
 {
-    using SchoolMngr.Services.Model.Entities;
+    using SchoolMngr.Services.Backoffice.Model.Entities;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;

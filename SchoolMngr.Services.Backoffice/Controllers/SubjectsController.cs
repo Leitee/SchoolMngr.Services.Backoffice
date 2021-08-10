@@ -1,30 +1,32 @@
-﻿
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Codeit.NetStdLibrary.Base.Application;
-using Codeit.NetStdLibrary.Base.BusinessLogic;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Fitnner.Trainers.Catalog.Controllers
+﻿namespace SchoolMngr.Services.Backoffice.Controllers
 {
-    public class ProductsController : ApiBaseController
+    using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
+    using Codeit.NetStdLibrary.Base.Application;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using SchoolMngr.Services.Backoffice.BL.Abstractions;
+    using SchoolMngr.Services.Backoffice.BL.Dtos;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    public class SubjectsController : ApiBaseController
     {
-        private readonly IProductSVC _productSVC;
-        public ProductsController(ILoggerFactory loggerFactory, IProductSVC productSVC) : base(loggerFactory)
+        private readonly ISubjectSvc _subjectSvc;
+        public SubjectsController(ILoggerFactory loggerFactory, ISubjectSvc subjectSvc) : base(loggerFactory)
         {
-            _productSVC = productSVC;
+            _subjectSvc = subjectSvc;
         }
 
         // GET: api/<ProductsController>
         [HttpGet]
         [AllowAnonymous]
+        [ProducesDefaultResponseType(typeof(IBLListResponse<SubjectDto>))]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            var response = await _productSVC.GetAllAsync(cancellationToken);
+            var response = await _subjectSvc.GetAllAsync(cancellationToken);
             return response.ToHttpResponse();
         }
 
@@ -34,16 +36,16 @@ namespace Fitnner.Trainers.Catalog.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid pId)
         {
-            var response = await _productSVC.GetByIdAsync(pId);
+            var response = await _subjectSvc.GetByIdAsync(pId);
             return response.ToHttpResponse();
         }
 
         // POST api/<ProductsController>
         [HttpPost]
-        [ProducesResponseType(typeof(BLSingleResponse<ProductDTO>), StatusCodes.Status201Created)]
-        public async Task<IActionResult> Post([FromBody] ProductDTO pProduct)
+        [ProducesResponseType(typeof(IBLSingleResponse<SubjectDto>), StatusCodes.Status201Created)]
+        public async Task<IActionResult> Post([FromBody] SubjectDto pProduct)
         {
-            var response = await _productSVC.CreateAsync(pProduct);
+            var response = await _subjectSvc.CreateAsync(pProduct);
             return response.ToHttpResponse();
         }
 
@@ -53,11 +55,11 @@ namespace Fitnner.Trainers.Catalog.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid pId)
         {
-            var resul = await _productSVC.GetByIdAsync(pId);
+            var resul = await _subjectSvc.GetByIdAsync(pId);
             if (resul == null)
                 return NotFound();
 
-            var response = await _productSVC.DeleteAsync(resul.Payload);
+            var response = await _subjectSvc.DeleteAsync(resul.Payload);
             return response.ToHttpResponse();
         }
 
@@ -65,12 +67,12 @@ namespace Fitnner.Trainers.Catalog.Controllers
         [HttpPatch("{pId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Patch([FromBody] ProductDTO pProduct, Guid pId)
+        public async Task<IActionResult> Patch([FromBody] SubjectDto pProduct, Guid pId)
         {
             if (pProduct.Id != pId)
                 return NotFound();
 
-            var response = await _productSVC.UpdateAsync(pProduct);
+            var response = await _subjectSvc.UpdateAsync(pProduct);
             return response.ToHttpResponse();
         }
 
@@ -80,7 +82,7 @@ namespace Fitnner.Trainers.Catalog.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll(Guid fId)
         {
-            var response = await _productSVC.GetAllAsync(fId);
+            var response = await _subjectSvc.GetAllAsync();
             return response.ToHttpResponse();
         }
     }

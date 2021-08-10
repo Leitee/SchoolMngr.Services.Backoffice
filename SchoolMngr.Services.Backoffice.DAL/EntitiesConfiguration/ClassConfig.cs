@@ -3,7 +3,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.EntitiesConfiguration
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SchoolMngr.Services.Model.Entities;
+    using SchoolMngr.Services.Backoffice.Model.Entities;
 
     public class ClassConfig : IEntityTypeConfiguration<Class>
     {

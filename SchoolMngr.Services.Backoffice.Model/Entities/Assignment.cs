@@ -1,5 +1,5 @@
 ﻿
-namespace SchoolMngr.Services.Model.Entities
+namespace SchoolMngr.Services.Backoffice.Model.Entities
 {
     using Codeit.NetStdLibrary.Base.DomainModel;
     using System;

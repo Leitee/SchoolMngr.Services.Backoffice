@@ -1,8 +1,8 @@
 ﻿
-namespace SchoolMngr.Services.Model.Dtos
+namespace SchoolMngr.Services.Backoffice.BL.Dtos
 {
     using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
-    using SchoolMngr.Services.Model.Enums;
+    using SchoolMngr.Services.Backoffice.Model.Enums;
     using System;
 
     public sealed class EnrollmentDto : IDto

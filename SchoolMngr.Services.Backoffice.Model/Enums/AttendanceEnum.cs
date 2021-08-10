@@ -1,5 +1,5 @@
 ﻿
-namespace SchoolMngr.Services.Model.Enums
+namespace SchoolMngr.Services.Backoffice.Model.Enums
 {
     using System.ComponentModel;
 

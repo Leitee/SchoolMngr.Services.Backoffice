@@ -1,5 +1,5 @@
 ﻿
-namespace SchoolMngr.Services.Model.Dtos
+namespace SchoolMngr.Services.Backoffice.BL.Dtos
 {
     using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
     using System.Collections.Generic;

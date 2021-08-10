@@ -1,8 +1,8 @@
 ﻿
-namespace SchoolMngr.Services.Model.Entities
+namespace SchoolMngr.Services.Backoffice.Model.Entities
 {
     using Codeit.NetStdLibrary.Base.DomainModel;
-    using SchoolMngr.Services.Model.Enums;
+    using SchoolMngr.Services.Backoffice.Model.Enums;
     using System;
 
     public class Enrollment : EFEntity
