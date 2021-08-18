@@ -11,8 +11,10 @@ namespace SchoolMngr.Services.Backoffice.DAL.EntitiesConfiguration
         {
             builder.ToTable("Subjects", "DOMAIN");
             builder.Property(e => e.Id).HasColumnName("SubjectID");
-            builder.Property(e => e.CodeName).IsRequired().HasMaxLength(10);
             builder.Property(e => e.FullName).IsRequired().HasMaxLength(50);
+            builder.Property(e => e.CodeName).IsRequired().HasMaxLength(10);
+
+            builder.HasIndex(s => s.CodeName).IsUnique();
 
             builder
                 .HasOne(s => s.NextAvailable)

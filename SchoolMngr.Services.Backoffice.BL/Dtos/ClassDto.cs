@@ -1,7 +1,7 @@
 ﻿
 namespace SchoolMngr.Services.Backoffice.BL.Dtos
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
+    using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
     using SchoolMngr.Services.Backoffice.Model.Enums;
     using System;
     using System.Collections.Generic;

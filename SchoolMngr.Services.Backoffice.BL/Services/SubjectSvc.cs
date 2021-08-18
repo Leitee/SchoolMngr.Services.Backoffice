@@ -1,5 +1,4 @@
-﻿
-namespace Fitnner.Trainers.Catalog.BL.Services
+﻿namespace SchoolMngr.Services.Backoffice.BL.Services
 {
     using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
     using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
@@ -18,9 +17,9 @@ namespace Fitnner.Trainers.Catalog.BL.Services
     public class SubjectSvc : BaseService<Subject, SubjectDto>, ISubjectSvc
     {
         public SubjectSvc(
-            IApplicationUow applicationUow, 
-            ILoggerFactory loggerFactory, 
-            IConfiguration configuration, 
+            IApplicationUow applicationUow,
+            ILoggerFactory loggerFactory,
+            IConfiguration configuration,
             IMapperCore<Subject, SubjectDto> mapperCore
         )
             : base(applicationUow, loggerFactory, configuration, mapperCore)
@@ -100,7 +99,7 @@ namespace Fitnner.Trainers.Catalog.BL.Services
             try
             {
                 var entity = _mapper.Map(pDto);
-                await _uow.GetRepository<Subject>().UpdateAsync(entity);   
+                await _uow.GetRepository<Subject>().UpdateAsync(entity);
                 response.Payload = await _uow.CommitAsync();
             }
             catch (Exception ex)

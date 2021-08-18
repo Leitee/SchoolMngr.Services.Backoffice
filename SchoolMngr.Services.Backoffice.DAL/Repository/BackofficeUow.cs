@@ -10,7 +10,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
     using Microsoft.Extensions.Logging.Abstractions;
     using SchoolMngr.Services.Backoffice.DAL.Context;
     using System;
-    using System.Threading;
+    using System.Threading; 
     using System.Threading.Tasks;
 
     public class BackofficeUow : IApplicationUow
@@ -41,7 +41,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -54,7 +54,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -77,7 +77,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 

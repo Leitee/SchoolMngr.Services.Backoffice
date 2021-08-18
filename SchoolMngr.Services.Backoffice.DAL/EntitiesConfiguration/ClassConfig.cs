@@ -13,6 +13,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.EntitiesConfiguration
             builder.Property(e => e.Id).HasColumnName("ClassID");
             builder.Property(e => e.DivisionName).IsRequired().HasMaxLength(50);
             builder.Property(e => e.StartsAt).IsRequired();
+            builder.Property(e => e.EndsAt).IsRequired(false);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -87,7 +87,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -106,7 +106,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -118,7 +118,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -130,7 +130,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -143,7 +143,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -174,7 +174,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -195,7 +195,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -207,7 +207,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -219,7 +219,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -231,7 +231,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -250,7 +250,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
 
@@ -262,7 +262,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             }
             catch (Exception ex)
             {
-                throw new DataAccessTierException(ex);
+                throw new DataAccessLayerException(ex);
             }
         }
     }

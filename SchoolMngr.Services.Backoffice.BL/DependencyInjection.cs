@@ -10,7 +10,7 @@ namespace SchoolMngr.Services.Backoffice.BL
     using SchoolMngr.Services.Backoffice.BL.Dtos;
     using SchoolMngr.Services.Backoffice.BL.Mappers;
     using SchoolMngr.Services.Backoffice.BL.Abstractions;
-    using Fitnner.Trainers.Catalog.BL.Services;
+    using SchoolMngr.Services.Backoffice.BL.Services;
 
     public static partial class DependencyInjection
     {

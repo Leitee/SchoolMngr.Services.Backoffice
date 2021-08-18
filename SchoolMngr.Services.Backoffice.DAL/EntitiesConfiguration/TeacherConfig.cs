@@ -10,7 +10,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<Teacher> builder)
         {
             builder.ToTable("Teachers", "DOMAIN");
-            builder.Property(e => e.Id).ValueGeneratedNever().HasColumnName("TeacherID");
+            builder.Property(e => e.Id).HasColumnName("TeacherID");
             builder.Property(e => e.Address).HasMaxLength(200);
         }
     }

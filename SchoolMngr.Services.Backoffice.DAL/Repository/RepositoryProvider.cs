@@ -108,7 +108,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Repository
             var f = factory ?? _repositoryFactories.GetRepositoryFactory<T>();
             if (f == null)
             {
-                throw new DataAccessTierException("No factory for repository type, " + typeof(T).FullName);
+                throw new DataAccessLayerException("No factory for repository type, " + typeof(T).FullName);
             }
             var repo = (T)f(dbContext);
             Repositories[typeof(T)] = repo;

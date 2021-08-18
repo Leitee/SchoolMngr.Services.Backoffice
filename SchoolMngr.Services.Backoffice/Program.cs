@@ -27,6 +27,7 @@ namespace SchoolMngr.Services.Backoffice
                     .UseSerilog()
                     .Build();
 
+                //TODO: ask for environment, run seeder only when debug mode
                 Log.Information("Applying migrations ({ApplicationContext})...", _appName);
                 using (var scope = host.Services.CreateScope())
                 {

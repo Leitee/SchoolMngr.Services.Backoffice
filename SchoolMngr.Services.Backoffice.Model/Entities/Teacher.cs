@@ -14,7 +14,7 @@ namespace SchoolMngr.Services.Backoffice.Model.Entities
         public bool IsTemporary { get; set; }
         public string Observations { get; set; }
 
-        public virtual Guid IdentityUserId { get; set; }
+        public Guid IdentityUserId { get; set; }
 
         public virtual ICollection<Assignment> Assingments { get; set; }
 
