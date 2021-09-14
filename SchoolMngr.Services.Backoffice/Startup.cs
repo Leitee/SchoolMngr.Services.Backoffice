@@ -1,21 +1,20 @@
-using Codeit.NetStdLibrary.Base.Application;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
-using Microsoft.OpenApi.Models;
-using SchoolMngr.Services.Backoffice.DAL;
-using Serilog;
-using System;
-using System.Collections.Generic;
 
 namespace SchoolMngr.Services.Backoffice
 {
+    using Codeit.NetStdLibrary.Base.Application;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Identity.Web;
+    using Microsoft.OpenApi.Models;
+    using SchoolMngr.Services.Backoffice.DAL;
+    using SchoolMngr.Services.Backoffice.DAL.Context;
+    using Serilog;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -31,6 +30,9 @@ namespace SchoolMngr.Services.Backoffice
         {
             services.AddOptions();
             services.Configure<AppSettings>(Configuration);
+
+            //services.Configure<AppSettings>(sttg =>
+            //    Configuration.GetSection("").Bind(sttg);
 
             services.AddCors(options =>
             {
@@ -50,6 +52,9 @@ namespace SchoolMngr.Services.Backoffice
 
             services.AddControllersWithViews();
 
+            services.AddHealthChecks()
+                .AddCheck("Self", _ => HealthCheckResult.Healthy())
+                .AddDbContextCheck<BackofficeDbContext>();
 
             //services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
             //    .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
@@ -147,6 +152,7 @@ namespace SchoolMngr.Services.Backoffice
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/hc");
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");

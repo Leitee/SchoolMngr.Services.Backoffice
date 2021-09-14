@@ -37,7 +37,7 @@ export interface Enrollment
 {
 	id: string;
 	studentProfileId: string;
-	studentStatus: StudentStatusEnum;
+	studentStatus: string;
 	class: Class;
 }
 export interface Grade
@@ -72,28 +72,10 @@ export interface Teacher
 	identityUserId: string;
 	assingments: Assignment[];
 }
-declare enum ExamTypeEnum {
-	FIRST = 1,
-	SECOND = 2,
-	THIRD = 3,
-	RETRY = 4,
-	FINAL = 5
-}
-declare enum AttendanceEnum {
-	ATTENDED = 1,
-	MISSED = 2,
-	REASON = 3
-}
 declare enum SchoolRolesEnum {
 	ADMINISTRADOR = 1,
 	TEACHER = 2,
 	STUDENT = 3
-}
-declare enum StudentStatusEnum {
-	ENROLLED = 1,
-	ACTIVE = 2,
-	INACTIVE = 3,
-	ACHIEVED = 4
 }
 declare enum ShiftTimeEnum {
 	MORNING = 1,

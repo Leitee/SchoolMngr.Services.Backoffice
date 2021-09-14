@@ -57,16 +57,7 @@ namespace SchoolMngr.Services.Backoffice.BL.TSConfig
                 .WithPublicProperties()
                 .OverrideName("Teacher");
 
-            builder.ExportAsEnum<ExamTypeEnum>()
-                .DontIncludeToNamespace();
-
-            builder.ExportAsEnum<AttendanceEnum>()
-                .DontIncludeToNamespace();
-
             builder.ExportAsEnum<SchoolRolesEnum>()
-                .DontIncludeToNamespace();
-
-            builder.ExportAsEnum<StudentStatusEnum>()
                 .DontIncludeToNamespace();
 
             builder.ExportAsEnum<ShiftTimeEnum>()

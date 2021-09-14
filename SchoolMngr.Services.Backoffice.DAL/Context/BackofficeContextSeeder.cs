@@ -164,13 +164,13 @@ namespace SchoolMngr.Services.Backoffice.DAL.Context
                 new Enrollment 
                 { 
                     StudentProfileId = "31872700", 
-                    StudentStatus = StudentStatusEnum.ACTIVE,
+                    StudentStatus = "ACTIVE",
                     //ClassId = _context.Classes.Single(x => x.)
                 },
                 new Enrollment 
                 { 
                     StudentProfileId = "33669524", 
-                    StudentStatus = StudentStatusEnum.ACTIVE 
+                    StudentStatus = "INACTIVE" 
                 }
                 );
 
