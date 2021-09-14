@@ -1,10 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
-    <LangVersion>$(LangTargetVersion)</LangVersion>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Mappers\AgendaMapper.cs" />
     <Compile Remove="Mappers\CategoryMapper.cs" />
