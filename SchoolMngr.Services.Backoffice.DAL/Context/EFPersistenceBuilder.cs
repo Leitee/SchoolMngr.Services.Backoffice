@@ -36,7 +36,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Context
             }
         }
 
-        public static EFPersistenceBuilder Build(DALSettings settings)
+        public static IPersistenceBuilder Build(DALSettings settings)
         {
             if (instance == null)
                 instance = new EFPersistenceBuilder(settings);

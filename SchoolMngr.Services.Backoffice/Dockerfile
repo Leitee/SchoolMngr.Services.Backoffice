@@ -7,10 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["microservices/admin/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice.csproj", "microservices/admin/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice/"]
-RUN dotnet restore "microservices/admin/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice.csproj"
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice.csproj", "microservices/admin/SchoolMngr.Services.Backoffice/"]
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice.BL/SchoolMngr.Services.Backoffice.BL.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.BL/"]
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice.DAL/SchoolMngr.Services.Backoffice.DAL.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.DAL/"]
+COPY ["microservices/admin/SchoolMngr.Services.Backoffice.Model/SchoolMngr.Services.Backoffice.Model.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.Model/"]
+COPY ["infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj", "infrastructure/shared/"]
+COPY ["../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.csproj", "../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base/"]
+COPY ["../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.Abstractions/Codeit.NetStdLibrary.Base.Abstractions.csproj", "../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.Abstractions/"]
+RUN dotnet restore "microservices/admin/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice.csproj"
 COPY . .
-WORKDIR "/src/microservices/admin/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice"
+WORKDIR "/src/microservices/admin/SchoolMngr.Services.Backoffice"
 RUN dotnet build "SchoolMngr.Services.Backoffice.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -3,7 +3,8 @@
   <PropertyGroup>
     <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..\..</DockerfileContext>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <UserSecretsId>8d8e0b53-b978-4c2e-b53c-f711bc2fbf75</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
