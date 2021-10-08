@@ -1,2 +1,2 @@
 # BackOffice
-I changed the services to user the periscope lamp instead of lamp service
+MVC app and Web API service developed for dealing with school's rules, setting, and data entry.
