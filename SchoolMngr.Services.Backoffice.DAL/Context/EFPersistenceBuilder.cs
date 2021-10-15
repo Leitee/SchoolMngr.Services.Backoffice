@@ -19,11 +19,11 @@ namespace SchoolMngr.Services.Backoffice.DAL.Context
         {
             //Uncomment if you want to apply LazyLoading globally and skip including it manually for each entity.
             //options.UseLazyLoadingProxies();
-            options.EnableDetailedErrors(_setting.EnableDetailedDebug);
-            options.EnableSensitiveDataLogging(_setting.EnableDetailedDebug);
+            options.EnableDetailedErrors(_setting.EnableDetailedDebug is true);
+            options.EnableSensitiveDataLogging(_setting.EnableDetailedDebug is true);
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
 
-            if (_setting.UseDatabase)
+            if (_setting.UseDatabase is true)
             {
                 options.UseSqlServer(_setting.DatabaseConnection, dbOpt =>
                 {

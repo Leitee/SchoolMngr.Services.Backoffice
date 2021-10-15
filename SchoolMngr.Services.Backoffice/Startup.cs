@@ -11,8 +11,10 @@ namespace SchoolMngr.Services.Backoffice
     using Microsoft.Extensions.Hosting;
     using Microsoft.Identity.Web;
     using Microsoft.OpenApi.Models;
+    using SchoolMngr.Services.Backoffice.BL;
     using SchoolMngr.Services.Backoffice.DAL;
     using SchoolMngr.Services.Backoffice.DAL.Context;
+    using SchoolMngr.Infrastructure.Shared;
     using Serilog;
 
     public class Startup
@@ -46,9 +48,9 @@ namespace SchoolMngr.Services.Backoffice
             });
 
             services
-                //.AddBusinessLogicTier(Configuration)
-                //.AddInfrastructureLayer("InfrastructureSection")
-                .AddPersistenceLayer("DALSection");
+                .AddBusinessLogicLayer()
+                .AddPersistenceLayer("DALSection")
+                .AddInfrastructureLayer("InfrastructureSection");
 
             services.AddControllersWithViews();
 
@@ -81,12 +83,12 @@ namespace SchoolMngr.Services.Backoffice
 
             services.AddSwaggerGen(options =>
             {
-                options.DescribeAllEnumsAsStrings();
+                //options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "SchoolMngr - Backoffice HTTP API",
                     Version = "v1",
-                    Description = "Backoffice app for SchoolMngr platform"
+                    Description = "Backoffice app for SchoolMngr solution"
                 });
                 //options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 //{
@@ -124,7 +126,7 @@ namespace SchoolMngr.Services.Backoffice
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseIf(env.IsProduction(), app => app.UseHsts());
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseSwagger();

@@ -14,10 +14,8 @@ namespace SchoolMngr.Services.Backoffice.BL
 
     public static partial class DependencyInjection
     {
-        public static IServiceCollection AddBusinessLogicTier(this IServiceCollection services, string sectionKey)
+        public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services, string sectionKey = default)
         {
-            //var blSettings = BLSettings.GetSection(configuration ?? throw new BusinessLogicTierException(nameof(configuration)));
-
             //register validators
             //services.AddScoped<IValidator<CategoryDTO>, CreateCategoryValidator>();
 
