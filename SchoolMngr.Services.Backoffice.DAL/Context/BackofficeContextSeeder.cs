@@ -1,6 +1,7 @@
 ﻿
 namespace SchoolMngr.Services.Backoffice.DAL.Context
 {
+    using Microsoft.EntityFrameworkCore;
     using SchoolMngr.Services.Backoffice.Model.Entities;
     using SchoolMngr.Services.Backoffice.Model.Enums;
     using System;
@@ -11,6 +12,16 @@ namespace SchoolMngr.Services.Backoffice.DAL.Context
     public static class BackofficeContextSeeder
     {
         private static BackofficeDbContext _context;
+
+        public static BackofficeDbContext TryApplyMigration(this BackofficeDbContext context)
+        {
+            if (context.Database.GetPendingMigrations().Any())
+            {
+                context.Database.Migrate();
+            }
+
+            return context;
+        }
 
         public static void TrySeedAll(this BackofficeDbContext context)
         {

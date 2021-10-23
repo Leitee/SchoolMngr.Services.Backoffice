@@ -7,7 +7,7 @@ namespace SchoolMngr.Services.Backoffice
 
     public class AppSettings : BaseSettings<AppSettings>
     {
-        public DALSettings DALSection { get; set; }
-        public InfrastructureSettings InfrastructureSection { get; set; }
+        public DALSettings DalSection { get; set; }
+        public INFRASettings InfraSection { get; set; }
     }
 }

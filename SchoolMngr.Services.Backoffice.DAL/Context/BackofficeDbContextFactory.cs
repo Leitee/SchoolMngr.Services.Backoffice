@@ -7,7 +7,7 @@
 
     public class BackofficeDbContextFactory : DesignTimeDbContextFactoryBase<BackofficeDbContext>
     {
-        public BackofficeDbContextFactory(DALSettings settings) : base(settings)
+        public BackofficeDbContextFactory() : base(SharedHostConfiguration.BuildDefaultSettings())
         {
         }
 

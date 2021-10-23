@@ -4,7 +4,6 @@ namespace SchoolMngr.Services.Backoffice
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
     using SchoolMngr.Infrastructure.Shared.Configuration;
     using SchoolMngr.Services.Backoffice.DAL.Context;
     using Serilog;
@@ -18,31 +17,36 @@ namespace SchoolMngr.Services.Backoffice
         {
             Log.Logger = SharedHostConfiguration.CreateSerilogLogger(_appName);
 
+            Log.Debug($"Args passed: {string.Join(',', args) }");
+
             try
             {
                 Log.Information("Configuring web host ({ApplicationContext})...", _appName);
                 var host = Host
                     .CreateDefaultBuilder(args)
                     .ConfigureWebHostDefaults(wb => wb.UseStartup<Startup>())
-                    .UseSerilog()
+                    .UseSerilog(Log.Logger)
                     .Build();
 
-                //TODO: ask for environment, run seeder only when debug mode
-                Log.Information("Applying migrations ({ApplicationContext})...", _appName);
-                using (var scope = host.Services.CreateScope())
+                if (Array.Exists(args, x => x.Contains("migrate")))
                 {
-                    var services = scope.ServiceProvider;
+                    Log.Debug("Applying migrations ({ApplicationContext})...", _appName);
+                    using (var scope = host.Services.CreateScope())
+                    {
+                        var services = scope.ServiceProvider;
 
-                    try
-                    {
-                        var trainersContext = services.GetRequiredService<BackofficeDbContext>();
-                        trainersContext.TrySeedAll();
-                    }
-                    catch (Exception ex)
-                    {
-                        var logger = services.GetRequiredService<ILogger<Program>>();
-                        Log.Error(ex, "An error occurred while migrating or initializing the database.");
-                    }
+                        try
+                        {
+                            services
+                                .GetRequiredService<BackofficeDbContext>()
+                                .TryApplyMigration()
+                                .TrySeedAll();
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(ex, "An error occurred while migrating or initializing the database.");
+                        }
+                    } 
                 }
 
                 Log.Information("Starting web host ({ApplicationContext})...", _appName);

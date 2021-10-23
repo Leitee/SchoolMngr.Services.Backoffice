@@ -24,7 +24,11 @@ namespace SchoolMngr.Services.Backoffice.BL
 
             //mappers
             services.AddSingleton<IMapperCore, GenericMapper>();
-            services.AddScoped<IMapperCore<Subject, SubjectDto>, SubjectMapper>();
+            services.AddSingleton<IMapperCore<Subject, SubjectDto>, SubjectMapper>(); 
+            services.AddSingleton<IMapperCore<Grade, GradeDto>, GradeMapper>();
+            services.AddSingleton<IMapperCore<Class, ClassDto>, ClassMapper>();
+            services.AddSingleton<IMapperCore<ClassRoom, ClassRoomDto>, ClassRoomMapper>();
+
 
             return services;
         }

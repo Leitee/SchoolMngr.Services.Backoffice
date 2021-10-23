@@ -59,7 +59,6 @@ export interface Subject
 	previousRequired: Subject[];
 	grade: Grade;
 	class: Class;
-	assingments: Assignment[];
 }
 export interface Teacher
 {

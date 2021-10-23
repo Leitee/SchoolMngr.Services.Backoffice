@@ -170,7 +170,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                 {
                     EnrollmentID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StudentProfileId = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    StudentStatus = table.Column<int>(type: "int", nullable: false),
+                    StudentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -215,6 +215,13 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                 schema: "DOMAIN",
                 table: "Enrollments",
                 column: "ClassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_CodeName",
+                schema: "DOMAIN",
+                table: "Subjects",
+                column: "CodeName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subjects_GradeId",

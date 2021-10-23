@@ -10,7 +10,7 @@ using SchoolMngr.Services.Backoffice.DAL.Context;
 namespace SchoolMngr.Services.Backoffice.DAL.Migrations
 {
     [DbContext(typeof(BackofficeDbContext))]
-    [Migration("20210807214454_InitialMigration")]
+    [Migration("20211016013342_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,10 +18,10 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Assignment", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Assignment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.ToTable("Assignments", "DOMAIN");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Class", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Class", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,7 +120,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.ToTable("Classes", "DOMAIN");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.ClassRoom", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.ClassRoom", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,7 +146,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.ToTable("ClassRooms", "DOMAIN");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Enrollment", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Enrollment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,8 +161,9 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.Property<int>("StudentStatus")
-                        .HasColumnType("int");
+                    b.Property<string>("StudentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -171,7 +172,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.ToTable("Enrollments", "DOMAIN");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Grade", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Grade", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int")
@@ -187,7 +188,7 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.ToTable("Grades", "DOMAIN");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Subject", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Subject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -225,6 +226,9 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CodeName")
+                        .IsUnique();
+
                     b.HasIndex("GradeId");
 
                     b.HasIndex("NextAvailableId");
@@ -232,9 +236,10 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.ToTable("Subjects", "DOMAIN");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Teacher", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Teacher", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TeacherID");
 
@@ -262,15 +267,15 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.ToTable("Teachers", "DOMAIN");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Assignment", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Assignment", b =>
                 {
-                    b.HasOne("SchoolMngr.BackOffice.Model.Entities.Class", "Class")
+                    b.HasOne("SchoolMngr.Services.Backoffice.Model.Entities.Class", "Class")
                         .WithMany("Assingments")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolMngr.BackOffice.Model.Entities.Teacher", "Teacher")
+                    b.HasOne("SchoolMngr.Services.Backoffice.Model.Entities.Teacher", "Teacher")
                         .WithMany("Assingments")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,17 +286,17 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Class", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Class", b =>
                 {
-                    b.HasOne("SchoolMngr.BackOffice.Model.Entities.ClassRoom", "ClassRoom")
+                    b.HasOne("SchoolMngr.Services.Backoffice.Model.Entities.ClassRoom", "ClassRoom")
                         .WithMany("Classes")
                         .HasForeignKey("ClassRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolMngr.BackOffice.Model.Entities.Subject", "Subject")
+                    b.HasOne("SchoolMngr.Services.Backoffice.Model.Entities.Subject", "Subject")
                         .WithOne("Class")
-                        .HasForeignKey("SchoolMngr.BackOffice.Model.Entities.Class", "SubjectId")
+                        .HasForeignKey("SchoolMngr.Services.Backoffice.Model.Entities.Class", "SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -300,9 +305,9 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Enrollment", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Enrollment", b =>
                 {
-                    b.HasOne("SchoolMngr.BackOffice.Model.Entities.Class", "Class")
+                    b.HasOne("SchoolMngr.Services.Backoffice.Model.Entities.Class", "Class")
                         .WithMany("Enrollments")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -311,15 +316,15 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.Navigation("Class");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Subject", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Subject", b =>
                 {
-                    b.HasOne("SchoolMngr.BackOffice.Model.Entities.Grade", "Grade")
+                    b.HasOne("SchoolMngr.Services.Backoffice.Model.Entities.Grade", "Grade")
                         .WithMany("Subjects")
                         .HasForeignKey("GradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolMngr.BackOffice.Model.Entities.Subject", "NextAvailable")
+                    b.HasOne("SchoolMngr.Services.Backoffice.Model.Entities.Subject", "NextAvailable")
                         .WithMany("PreviousRequired")
                         .HasForeignKey("NextAvailableId");
 
@@ -328,31 +333,31 @@ namespace SchoolMngr.Services.Backoffice.DAL.Migrations
                     b.Navigation("NextAvailable");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Class", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Class", b =>
                 {
                     b.Navigation("Assingments");
 
                     b.Navigation("Enrollments");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.ClassRoom", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.ClassRoom", b =>
                 {
                     b.Navigation("Classes");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Grade", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Grade", b =>
                 {
                     b.Navigation("Subjects");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Subject", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Subject", b =>
                 {
                     b.Navigation("Class");
 
                     b.Navigation("PreviousRequired");
                 });
 
-            modelBuilder.Entity("SchoolMngr.BackOffice.Model.Entities.Teacher", b =>
+            modelBuilder.Entity("SchoolMngr.Services.Backoffice.Model.Entities.Teacher", b =>
                 {
                     b.Navigation("Assingments");
                 });

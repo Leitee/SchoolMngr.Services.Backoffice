@@ -5,15 +5,13 @@
     using SchoolMngr.Services.Backoffice.BL.Dtos;
     using SchoolMngr.Services.Backoffice.Model.Entities;
 
-    public class SubjectMapper : GenericMapper<Subject, SubjectDto>
+    public class ClassMapper : GenericMapper<Class, ClassDto>
     {
         protected override IMapper CreateMapConfiguration()
         {
             return new MapperConfiguration(delegate (IMapperConfigurationExpression c)
             {
-                c.CreateMap<Subject, SubjectDto>().MaxDepth(2).ReverseMap();
-                c.CreateMap<Grade, GradeDto>().MaxDepth(2).ReverseMap();
-                c.CreateMap<Class, ClassDto>().MaxDepth(2).ReverseMap();
+                c.CreateMap<ClassRoom, ClassRoomDto>().MaxDepth(2).ReverseMap();
             }).CreateMapper();
         }
     }

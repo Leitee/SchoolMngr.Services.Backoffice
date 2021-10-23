@@ -2,6 +2,7 @@
 namespace SchoolMngr.Services.Backoffice
 {
     using Codeit.NetStdLibrary.Base.Application;
+    using IdentityServer4.AccessTokenValidation;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,14 @@ namespace SchoolMngr.Services.Backoffice
     using Microsoft.Extensions.Hosting;
     using Microsoft.Identity.Web;
     using Microsoft.OpenApi.Models;
+    using SchoolMngr.Infrastructure.Shared;
     using SchoolMngr.Services.Backoffice.BL;
     using SchoolMngr.Services.Backoffice.DAL;
     using SchoolMngr.Services.Backoffice.DAL.Context;
-    using SchoolMngr.Infrastructure.Shared;
     using Serilog;
+    using System;
+    using System.Collections.Generic;
+    using System.Text.Json.Serialization;
 
     public class Startup
     {
@@ -49,25 +53,28 @@ namespace SchoolMngr.Services.Backoffice
 
             services
                 .AddBusinessLogicLayer()
-                .AddPersistenceLayer("DALSection")
-                .AddInfrastructureLayer("InfrastructureSection");
+                .AddPersistenceLayer("DalSection")
+                .AddInfrastructureLayer("InfraSection");
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddHealthChecks()
                 .AddCheck("Self", _ => HealthCheckResult.Healthy())
                 .AddDbContextCheck<BackofficeDbContext>();
 
-            //services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-            //    .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
-            //services.AddControllersWithViews()
-            //    .AddMicrosoftIdentityUI();
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:7580";
+                    options.ApiName = "backofficeAPI";
+                });
 
-            //services.AddAuthorization(options =>
-            //{
-            //    // By default, all incoming requests will be authorized according to the default policy
-            //    options.FallbackPolicy = options.DefaultPolicy;
-            //});
+            services.AddAuthorization(options =>
+            {
+                // By default, all incoming requests will be authorized according to the default policy
+                options.FallbackPolicy = options.DefaultPolicy;
+            });
 
             services.AddVersionedApiExplorer(o =>
             {
@@ -90,30 +97,30 @@ namespace SchoolMngr.Services.Backoffice
                     Version = "v1",
                     Description = "Backoffice app for SchoolMngr solution"
                 });
-                //options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                //{
-                //    Type = SecuritySchemeType.OAuth2,
-                //    Flows = new OpenApiOAuthFlows
-                //    {
-                //        ClientCredentials = new OpenApiOAuthFlow
-                //        //AuthorizationCode = new OpenApiOAuthFlow
-                //        {
-                //            AuthorizationUrl = new Uri("https://localhost:7543/connect/authorize"),
-                //            TokenUrl = new Uri("https://localhost:7543/connect/token"),
-                //            Scopes = new Dictionary<string, string>
-                //            {
-                //                {"trainers", "Trainers - full access"}
-                //            }
-                //        }
-                //    }
-                //});
+                options.AddSecurityDefinition("OAuth2", 
+                    new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.OAuth2,
+                    
+                        Flows = new OpenApiOAuthFlows
+                        {
+                            ClientCredentials = new OpenApiOAuthFlow
+                            //AuthorizationCode = new OpenApiOAuthFlow
+                            {
+                                AuthorizationUrl = new Uri("http://localhost:7580/connect/authorize"),
+                                TokenUrl = new Uri("http://localhost:7580/connect/token"),
+                                Scopes = new Dictionary<string, string>
+                                {
+                                    {"openid", "User profile"}
+                                }
+                            }
+                        }
+                    });
             });
 
             services.AddRazorPages();
             services.AddServerSideBlazor()
                 .AddMicrosoftIdentityConsentHandler();
-
-            //services.AddSingleton<WeatherForecastService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -134,21 +141,18 @@ namespace SchoolMngr.Services.Backoffice
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(options =>
             {
-                options.OAuthClientId("trainers-web");
-                options.OAuthClientSecret("trainers-pass");
-                options.OAuthAppName("Catalog API - Swagger");
-                options.OAuthUsePkce();
+                options.OAuthAppName("Codeit - IdentityServer");
+                options.OAuthUseBasicAuthenticationWithAccessCodeGrant();
+                options.OAuthClientId("backoffice-mvc");
+                options.OAuthClientSecret("backoffice-secret");
+                options.OAuthScopes("openid");
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolMngr.Backoffice V1");
             });
 
-
             // This will make the HTTP requests log as rich logs instead of plain text.
             app.UseSerilogRequestLogging();
-
             app.UseRouting();
-
             app.UseCors();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

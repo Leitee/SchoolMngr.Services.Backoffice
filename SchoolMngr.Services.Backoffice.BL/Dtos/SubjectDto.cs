@@ -10,7 +10,6 @@ namespace SchoolMngr.Services.Backoffice.BL.Dtos
     {
         public SubjectDto()
         {
-            Assingments = new List<AssignmentDto>();
             PreviousRequired = new List<SubjectDto>();
         }
 
@@ -29,6 +28,5 @@ namespace SchoolMngr.Services.Backoffice.BL.Dtos
         public GradeDto Grade { get; set; }
 
         public ClassDto Class { get; set; }
-        public ICollection<AssignmentDto> Assingments { get; set; }
     }
 }
