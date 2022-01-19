@@ -34,8 +34,9 @@ namespace SchoolMngr.Services.Backoffice
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOptions();
-            services.Configure<AppSettings>(Configuration);
+            services
+                .AddOptions()
+                .Configure<AppSettings>(Configuration);
 
             //services.Configure<AppSettings>(sttg =>
             //    Configuration.GetSection("").Bind(sttg);
@@ -56,37 +57,42 @@ namespace SchoolMngr.Services.Backoffice
                 .AddPersistenceLayer("DalSection")
                 .AddInfrastructureLayer("InfraSection");
 
-            services.AddControllersWithViews()
+            services
+                .AddControllersWithViews()
                 .AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
-            services.AddHealthChecks()
+            services
+                .AddHealthChecks()
                 .AddCheck("Self", _ => HealthCheckResult.Healthy())
                 .AddDbContextCheck<BackofficeDbContext>();
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            services
+                .AddAuthorization(options =>
+                {
+                    // By default, all incoming requests will be authorized according to the default policy
+                    options.FallbackPolicy = options.DefaultPolicy;
+                })
+                .AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "http://localhost:7580";
+                    options.Authority = "https://localhost:7543";
                     options.ApiName = "backofficeAPI";
                 });
 
-            services.AddAuthorization(options =>
-            {
-                // By default, all incoming requests will be authorized according to the default policy
-                options.FallbackPolicy = options.DefaultPolicy;
-            });
+            services
+                .AddVersionedApiExplorer(o =>
+                {
+                    o.GroupNameFormat = "'v'VVV";
+                    o.SubstituteApiVersionInUrl = true;
+                });
 
-            services.AddVersionedApiExplorer(o =>
-            {
-                o.GroupNameFormat = "'v'VVV";
-                o.SubstituteApiVersionInUrl = true;
-            });
-            services.AddApiVersioning(opt =>
-            {
-                opt.ReportApiVersions = true;
-                opt.AssumeDefaultVersionWhenUnspecified = true;
-                opt.DefaultApiVersion = new ApiVersion(1, 0);
-            });
+            services
+                .AddApiVersioning(opt =>
+                {
+                    opt.ReportApiVersions = true;
+                    opt.AssumeDefaultVersionWhenUnspecified = true;
+                    opt.DefaultApiVersion = new ApiVersion(1, 0);
+                });
 
             services.AddSwaggerGen(options =>
             {
@@ -107,20 +113,23 @@ namespace SchoolMngr.Services.Backoffice
                             ClientCredentials = new OpenApiOAuthFlow
                             //AuthorizationCode = new OpenApiOAuthFlow
                             {
-                                AuthorizationUrl = new Uri("http://localhost:7580/connect/authorize"),
-                                TokenUrl = new Uri("http://localhost:7580/connect/token"),
+                                AuthorizationUrl = new Uri("https://localhost:7543/connect/authorize"),
+                                TokenUrl = new Uri("https://localhost:7543/connect/token"),
                                 Scopes = new Dictionary<string, string>
                                 {
-                                    {"openid", "User profile"}
+                                    {"openid", "User profile"},
+                                    {"backoffice", ""}
                                 }
                             }
                         }
                     });
             });
 
-            services.AddRazorPages();
-            services.AddServerSideBlazor()
+            services
+                .AddServerSideBlazor()
                 .AddMicrosoftIdentityConsentHandler();
+
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
