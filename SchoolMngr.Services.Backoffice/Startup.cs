@@ -54,8 +54,8 @@ namespace SchoolMngr.Services.Backoffice
 
             services
                 .AddBusinessLogicLayer()
-                .AddPersistenceLayer("DalSection")
-                .AddInfrastructureLayer("InfraSection");
+                .AddPersistenceLayer(AppSettings.DAL_SECTION_KEY)
+                .AddInfrastructureLayer(AppSettings.INFRA_SECTION_KEY);
 
             services
                 .AddControllersWithViews()
