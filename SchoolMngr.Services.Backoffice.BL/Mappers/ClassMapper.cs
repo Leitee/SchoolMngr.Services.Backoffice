@@ -1,7 +1,7 @@
 ﻿namespace SchoolMngr.Services.Backoffice.BL.Mappers
 {
     using AutoMapper;
-    using Codeit.NetStdLibrary.Base.BusinessLogic;
+    using Codeit.Enterprise.Base.BusinessLogic;
     using SchoolMngr.Services.Backoffice.BL.Dtos;
     using SchoolMngr.Services.Backoffice.Model.Entities;
 

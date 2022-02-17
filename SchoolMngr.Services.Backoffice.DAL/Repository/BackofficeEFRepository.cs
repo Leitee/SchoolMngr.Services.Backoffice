@@ -1,10 +1,10 @@
 ﻿
 namespace SchoolMngr.Services.Backoffice.DAL.Repository
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
-    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Codeit.NetStdLibrary.Base.DataAccess;
-    using Codeit.NetStdLibrary.Base.DomainModel;
+    using Codeit.Enterprise.Base.Abstractions.DataAccess;
+    using Codeit.Enterprise.Base.Abstractions.DomainModel;
+    using Codeit.Enterprise.Base.DataAccess;
+    using Codeit.Enterprise.Base.DomainModel;
     using Microsoft.EntityFrameworkCore;
     using SchoolMngr.Services.Backoffice.DAL.Context;
     using System;

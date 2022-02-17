@@ -1,9 +1,9 @@
 ﻿namespace SchoolMngr.Services.Backoffice.BL.Services
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
-    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
-    using Codeit.NetStdLibrary.Base.BusinessLogic;
-    using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.Enterprise.Base.Abstractions.BusinessLogic;
+    using Codeit.Enterprise.Base.Abstractions.DataAccess;
+    using Codeit.Enterprise.Base.BusinessLogic;
+    using Codeit.Enterprise.Base.DataAccess;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using SchoolMngr.Services.Backoffice.BL.Abstractions;

@@ -3,10 +3,10 @@ namespace SchoolMngr.Services.Backoffice.DAL
 {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Codeit.NetStdLibrary.Base.DataAccess;
-    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
+    using Codeit.Enterprise.Base.DataAccess;
+    using Codeit.Enterprise.Base.Abstractions.DataAccess;
     using SchoolMngr.Services.Backoffice.DAL.Repository;
-    using Codeit.NetStdLibrary.Base.Abstractions;
+    using Codeit.Enterprise.Base.Abstractions;
     using SchoolMngr.Services.Backoffice.DAL.Context;
     using System;
 

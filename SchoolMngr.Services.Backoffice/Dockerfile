@@ -11,8 +11,8 @@ COPY ["microservices/admin/SchoolMngr.Services.Backoffice.BL/SchoolMngr.Services
 COPY ["microservices/admin/SchoolMngr.Services.Backoffice.DAL/SchoolMngr.Services.Backoffice.DAL.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.DAL/"]
 COPY ["microservices/admin/SchoolMngr.Services.Backoffice.Model/SchoolMngr.Services.Backoffice.Model.csproj", "microservices/admin/SchoolMngr.Services.Backoffice.Model/"]
 COPY ["infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj", "infrastructure/shared/"]
-COPY ["../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.csproj", "../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base/"]
-COPY ["../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.Abstractions/Codeit.NetStdLibrary.Base.Abstractions.csproj", "../../Codeit.NetStdLibrary.Base/Codeit.NetStdLibrary.Base.Abstractions/"]
+COPY ["../../Codeit.Enterprise.Base/Codeit.Enterprise.Base/Codeit.Enterprise.Base.csproj", "../../Codeit.Enterprise.Base/Codeit.Enterprise.Base/"]
+COPY ["../../Codeit.Enterprise.Base/Codeit.Enterprise.Base.Abstractions/Codeit.Enterprise.Base.Abstractions.csproj", "../../Codeit.Enterprise.Base/Codeit.Enterprise.Base.Abstractions/"]
 RUN dotnet restore "microservices/admin/SchoolMngr.Services.Backoffice/SchoolMngr.Services.Backoffice.csproj"
 COPY . .
 WORKDIR "/src/microservices/admin/SchoolMngr.Services.Backoffice"

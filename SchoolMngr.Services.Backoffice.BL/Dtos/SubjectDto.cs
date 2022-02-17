@@ -2,7 +2,7 @@
 namespace SchoolMngr.Services.Backoffice.BL.Dtos
 
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
+    using Codeit.Enterprise.Base.Abstractions.BusinessLogic;
     using System;
     using System.Collections.Generic;
 

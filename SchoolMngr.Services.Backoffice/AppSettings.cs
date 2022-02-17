@@ -1,8 +1,8 @@
 ﻿
 namespace SchoolMngr.Services.Backoffice
 {
-    using Codeit.NetStdLibrary.Base.Common;
-    using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.Enterprise.Base.Common;
+    using Codeit.Enterprise.Base.DataAccess;
     using SchoolMngr.Infrastructure.Shared.Configuration;
 
     public class AppSettings : BaseSettings<AppSettings>

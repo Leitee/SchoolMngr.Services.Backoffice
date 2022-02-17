@@ -1,7 +1,7 @@
 
 namespace SchoolMngr.Services.Backoffice
 {
-    using Codeit.NetStdLibrary.Base.Application;
+    using Codeit.Enterprise.Base.Application;
     using IdentityServer4.AccessTokenValidation;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;

@@ -1,8 +1,8 @@
 ﻿
 namespace SchoolMngr.Services.Backoffice.Model.Entities
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.DomainModel;
-    using Codeit.NetStdLibrary.Base.DomainModel;
+    using Codeit.Enterprise.Base.Abstractions.DomainModel;
+    using Codeit.Enterprise.Base.DomainModel;
     using SchoolMngr.Services.Backoffice.Model.Enums;
     using System;
     using System.Collections.Generic;

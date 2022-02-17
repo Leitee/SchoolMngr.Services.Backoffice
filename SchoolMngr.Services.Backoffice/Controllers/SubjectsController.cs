@@ -1,7 +1,7 @@
 ﻿namespace SchoolMngr.Services.Backoffice.Controllers
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
-    using Codeit.NetStdLibrary.Base.Application;
+    using Codeit.Enterprise.Base.Abstractions.BusinessLogic;
+    using Codeit.Enterprise.Base.Application;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;

@@ -1,7 +1,7 @@
 ﻿namespace SchoolMngr.Services.Backoffice.DAL.Context
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
-    using Codeit.NetStdLibrary.Base.DataAccess;
+    using Codeit.Enterprise.Base.Abstractions.DataAccess;
+    using Codeit.Enterprise.Base.DataAccess;
     using Microsoft.EntityFrameworkCore;
     using SchoolMngr.Infrastructure.Shared.Configuration;
 

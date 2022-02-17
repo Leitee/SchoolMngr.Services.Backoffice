@@ -4,8 +4,8 @@ namespace SchoolMngr.Services.Backoffice.BL
     using FluentValidation;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Codeit.NetStdLibrary.Base.Abstractions.BusinessLogic;
-    using Codeit.NetStdLibrary.Base.BusinessLogic;
+    using Codeit.Enterprise.Base.Abstractions.BusinessLogic;
+    using Codeit.Enterprise.Base.BusinessLogic;
     using SchoolMngr.Services.Backoffice.Model.Entities;
     using SchoolMngr.Services.Backoffice.BL.Dtos;
     using SchoolMngr.Services.Backoffice.BL.Mappers;
